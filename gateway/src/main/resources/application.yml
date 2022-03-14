@@ -1,0 +1,38 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: ACCOUNT-SERVICE
+          uri: lb://ACCOUNT-SERVICE
+          predicates:
+            - Path=/account/**
+        - id: WARRIOR-SERVICE
+          uri: lb://WARRIOR-SERVICE
+          predicates:
+            - Path=/warrior/**
+        - id: POINTS-SERVICE
+            uri: lb://POINTS-SERVICE
+            predicates:
+              - Path=/points/**
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+
+
+
+
+
+
+
+
