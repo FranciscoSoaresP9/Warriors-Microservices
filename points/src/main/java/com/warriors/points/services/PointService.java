@@ -22,9 +22,9 @@ public class PointService implements PointsService<Points> {
 
 
 
-    public void update(Points points){
+    public Points update(Points points){
         if(!checkMaxPoints(points)){
-            return;
+            return points;
         }
         Points pointsChanged = get(points.getId());
         pointsChanged.setDamage(points.getDamage());
@@ -32,8 +32,7 @@ public class PointService implements PointsService<Points> {
         pointsChanged.setLife(points.getLife());
         pointsChanged.setSpeed(points.getSpeed());
         pointsChanged.setPointsAvailable(points.getPointsAvailable());
-
-        pointsRepository.save(pointsChanged);
+        return pointsRepository.save(pointsChanged);
     }
 
     private boolean checkMaxPoints(Points points){

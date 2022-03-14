@@ -16,8 +16,8 @@ public class PointsController {
     }
 
     @PostMapping("/updatePoints")
-    public void savePoints( @RequestBody Points points) {
-        pointService.update(points);
+    public Points savePoints( @RequestBody Points points) {
+       return pointService.update(points);
     }
 
 }

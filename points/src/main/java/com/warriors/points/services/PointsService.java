@@ -1,5 +1,7 @@
 package com.warriors.points.services;
 
+import com.warriors.points.model.Points;
+
 public interface PointsService<T>{
-    void update(T toUpdate);
+    Points update(T toUpdate);
 }
