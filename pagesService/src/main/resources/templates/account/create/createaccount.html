@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+	<meta charset="utf-8">
+	<title>Form-v7 by Colorlib</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Jquery -->
+
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="../resource/account/createaccount/css/style.css"/>
+</head>
+<body class="form-v7">
+
+
+<div class="nav_bar">
+	<div class="w3-bar nav_bar  w3-card">
+		<a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right"
+		   href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i
+				class="fa fa-bars"></i></a>
+		<a href="../mainpage" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+		<a href="../account/login" class="w3-bar-item w3-button w3-padding-large w3-hide-small url">LOGIN</a>
+		<a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small url">PLAY</a>
+		<a href="#" class="w3-bar-item w3-button w3-padding-large w3-hide-small url">REGISTER</a>
+		<a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">SUPPORT</a>
+
+	</div>
+</div>
+	<div class="page-content">
+
+		<div class="form-v7-content">
+			<div class="form-left">
+				<img src="../resource/img/warriorRegist.jpg" alt="form">
+			</div>
+			<form class="form-detail"  id="myform">
+
+				<p class="text-1">Sign Up</p>
+				<div class="form-row">
+					<label for="username">USERNAME</label>
+					<input type="text" name="username"  id="username" class="input-text" >
+				</div>
+				<div class="form-row">
+					<label for="email">E-MAIL</label>
+					<input type="text" name="email" id="email" class="input-text"   required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+				</div>
+				<div class="form-row">
+					<label for="password">PASSWORD</label>
+					<input type="password" name="password" id="password"  class="input-text" required>
+				</div>
+				<div class="form-row">
+					<label for="confirm_password">CONFIRM PASSWORD</label>
+					<input type="password" name="confirm_password" id="confirm_password" class="input-text" required>
+				</div>
+				<div class="form-row-last">
+
+					<input id="submitbutton" type="submit" name="register" class="register" value="Register">
+					<p>Or<a href="/login">Sign in</a></p>
+				</div>
+				<div id="loader" class="loader-invisible"></div>
+			</form>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script src=""></script>
+<script src="../resource/account/createNewAccount.js"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

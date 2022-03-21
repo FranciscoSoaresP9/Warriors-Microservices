@@ -1,6 +1,7 @@
 package com.warriors.warrior;
 
 import com.warriors.warrior.model.Points;
+import com.warriors.warrior.model.Status;
 import com.warriors.warrior.model.Warrior;
 import com.warriors.warrior.model.WarriorType;
 import net.minidev.json.JSONObject;
@@ -23,19 +24,33 @@ public class RequestSender {
 
     public void associateWarriorToAccount(Integer accountId, Warrior warriorSaved) {
 
-        restTemplate.postForObject("http://ACCOUNT-SERVICE/addWarrior/" + accountId, setRequestValueForWarrior(warriorSaved), String.class);
+        restTemplate.postForObject("http://ACCOUNT-SERVICE/addWarrior/" + accountId,
+                createRequest(setJsonValueOfWarrior(warriorSaved)), String.class);
     }
 
     public Points persistPointsInDB(Points points){
-       return restTemplate.postForObject("http://POINTS-SERVICE//updatePoints/",setRequestValueForPoints(points),Points.class);
+       return restTemplate.postForObject("http://POINTS-SERVICE/savePoints/",
+               createRequest(setJsonValueOfPoints(points)),Points.class);
     }
 
+    public Status persistStatusInDB(Status defaultStatus) {
+        return restTemplate.postForObject("http://STATUS-SERVICE/saveStatus/",
+                createRequest(setJsonValueOfStatus(defaultStatus)),Status.class);
+    }
 
+    public Points updatePoints(Points pointsUpdated){
+         return restTemplate.postForObject("http://POINTS-SERVICE/updatePoints/",
+                createRequest(setJsonValueOfPoints(pointsUpdated)),Points.class);
+    }
 
-    private  HttpEntity<String> setRequestValueForWarrior(Warrior warrior) {
+    public Status updateStatus(Status statusUpdated){
+        return restTemplate.postForObject("http://STATUS-SERVICE/updateStatus/",
+                createRequest(setJsonValueOfStatus(statusUpdated)),Status.class);
+    }
+
+    private  HttpEntity<String> createRequest(JSONObject jsonObject) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        JSONObject jsonObject = setJsonValueOfWarrior(warrior);
         return new HttpEntity<>(jsonObject.toString(), headers);
     }
 
@@ -50,16 +65,10 @@ public class RequestSender {
         return jsonObject;
     }
 
-    private  HttpEntity<String> setRequestValueForPoints(Points points) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        JSONObject jsonObject = setJsonValueOfPoints(points);
-        return new HttpEntity<>(jsonObject.toString(), headers);
-    }
 
     private JSONObject setJsonValueOfPoints(Points points) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", points.getId());
+        jsonObject.put("id",points.getId());
         jsonObject.put("life",points.getLife());
         jsonObject.put("armor",points.getArmor());
         jsonObject.put("damage", points.getDamage());
@@ -67,4 +76,15 @@ public class RequestSender {
         jsonObject.put("pointsAvailable", points.getPointsAvailable());
         return jsonObject;
     }
+    private JSONObject setJsonValueOfStatus(Status status) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id",status.getId());
+        jsonObject.put("life",status.getLife());
+        jsonObject.put("armor",status.getArmor());
+        jsonObject.put("damage", status.getDamage());
+        jsonObject.put("speed", status.getSpeed());
+        return jsonObject;
+    }
+
+
 }

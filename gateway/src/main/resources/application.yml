@@ -16,17 +16,25 @@ spring:
           predicates:
             - Path=/warrior/**
         - id: POINTS-SERVICE
-            uri: lb://POINTS-SERVICE
-            predicates:
+          uri: lb://POINTS-SERVICE
+          predicates:
               - Path=/points/**
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      default-zone: http://localhost:8761/eureka/
-  instance:
-    hostname: localhost
+        - id: STATUS-SERVICE
+          uri: lb://STATUS-SERVICE
+          predicates:
+             - Path=/status/**
+        - id: LOGIN-SERVICE
+          uri: lb://LOGIN-SERVICE
+          predicates:
+              - Path=/login/**
+        - id: PAGE-SERVICE
+          uri: lb://PAGE-SERVICE
+          predicates:
+              - Path=/page/**
+        - id: RESOURCE-SERVICE
+          uri: lb://RESOURCE-SERVICE
+          predicates:
+              - Path=/resource/**
 
 
 

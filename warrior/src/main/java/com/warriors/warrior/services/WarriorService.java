@@ -3,8 +3,6 @@ package com.warriors.warrior.services;
 
 import com.warriors.warrior.RequestSender;
 import com.warriors.warrior.factory.WarriorFactory;
-import com.warriors.warrior.jparepository.PointsRepository;
-import com.warriors.warrior.jparepository.StatusRepository;
 import com.warriors.warrior.jparepository.WarriorRepository;
 import com.warriors.warrior.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +14,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WarriorService implements Services<Warrior> {
-    private final StatusRepository statusRepository;
-    private final PointsRepository pointsRepository;
     private final WarriorRepository warriorRepository;
     private final WarriorStatusConvert warriorStatusConvert;
     private final WarriorFactory warriorFactory;
     private final RequestSender requestSender;
 
     @Autowired
-    public WarriorService(StatusRepository statusRepository, PointsRepository pointsRepository, WarriorRepository warriorRepository, WarriorStatusConvert warriorStatusConvert, WarriorFactory warriorFactory, RequestSender requestSender) {
-        this.statusRepository = statusRepository;
-        this.pointsRepository = pointsRepository;
+    public WarriorService( WarriorRepository warriorRepository, WarriorStatusConvert warriorStatusConvert, WarriorFactory warriorFactory, RequestSender requestSender) {
         this.warriorRepository = warriorRepository;
         this.warriorStatusConvert = warriorStatusConvert;
         this.warriorFactory = warriorFactory;
@@ -67,7 +61,7 @@ public class WarriorService implements Services<Warrior> {
         warrior.setPoints(points);
 
         Status defaultStatus = new Status(0, 0, 0, 0);
-        Status status = statusRepository.save(defaultStatus);
+        Status status = requestSender.persistStatusInDB(defaultStatus);
         warrior.setStatus(status);
 
         requestSender.associateWarriorToAccount(warriorDTO.getAccountId(), warriorRepository.save(warrior));
@@ -81,13 +75,18 @@ public class WarriorService implements Services<Warrior> {
     }
 
     public Warrior updateStatus(Warrior warrior) {
-        //TODO put implemation there
-        // updatableServicePointService.update(warrior.getPoints());
+        System.out.println("BEFORE UPDATE POINTS");
+        requestSender.updatePoints(warrior.getPoints());
+        System.out.println("AFTER UPDATE POINTS");
+        System.out.println("BEFORE CONVERT");
         Status statusChanged = warriorStatusConvert.pointsToStatus(warrior);
-        //updatableServiceStatusService.update(statusChanged);
-
+        System.out.println("AFTER CONVERT");
+        System.out.println("BEFORE UPDATE STATUS");
+        requestSender.updateStatus(statusChanged);
+        System.out.println("AFTER UPDATE STATUS");
+        System.out.println("BEFORE GET WARRIOR");
         Warrior warriorUpdated = get(warrior.getId());
-
+        System.out.println("AFTER GET WARRIOR");
         return warriorUpdated;
 
     }

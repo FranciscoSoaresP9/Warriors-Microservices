@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 public class WarriorStatusConvert {
 
     public Status pointsToStatus(Warrior warrior) {
+        System.out.println(warrior);
+
         Points points = warrior.getPoints();
         Status status = warrior.getStatus();
         WarriorType warriorType = warrior.getWarriorType();

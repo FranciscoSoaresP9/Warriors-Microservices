@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping()
+@RequestMapping("")
 public class AccountRestController {
     private final AccountService accountService;
     private final Registry registry;
@@ -28,7 +28,8 @@ public class AccountRestController {
      * @param account
      */
 
-    @PostMapping(path = "/add")
+
+    @PostMapping(path = "account/add")
     public String registryAccount(@RequestBody Account account) {
         return registry.registry(account);
     }
@@ -37,6 +38,12 @@ public class AccountRestController {
     public String creatWarrior(@PathVariable Integer id,@RequestBody Warrior warrior) {
          accountService.createWarrior(id,warrior);
         return "Warrior Created";
+    }
+
+    @GetMapping(path = "account/getwarrior/{accountId}")
+    public Warrior getWarriorOfAccount(@PathVariable Integer accountId){
+        System.out.println(accountService.get(accountId).getWarrior());
+       return accountService.get(accountId).getWarrior();
     }
 
 
