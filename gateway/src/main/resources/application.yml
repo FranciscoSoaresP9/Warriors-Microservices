@@ -1,6 +1,7 @@
 server:
   port: 8088
 
+
 spring:
   application:
     name: API-GATEWAY
@@ -8,23 +9,23 @@ spring:
     gateway:
       routes:
         - id: ACCOUNT-SERVICE
-          uri: lb://ACCOUNT-SERVICE
+          uri: http://$(url):8081/
           predicates:
             - Path=/account/**
         - id: WARRIOR-SERVICE
-          uri: lb://WARRIOR-SERVICE
+          uri: http://$(url):8083/
           predicates:
             - Path=/warrior/**
         - id: POINTS-SERVICE
-          uri: lb://POINTS-SERVICE
+          uri: http://$(url):8084/
           predicates:
               - Path=/points/**
         - id: STATUS-SERVICE
-          uri: lb://STATUS-SERVICE
+          uri: http://$(url):8085/
           predicates:
              - Path=/status/**
         - id: LOGIN-SERVICE
-          uri: lb://LOGIN-SERVICE
+          uri: http://$(url):8087/
           predicates:
               - Path=/login/**
         - id: PAGE-SERVICE
@@ -32,7 +33,7 @@ spring:
           predicates:
               - Path=/page/**
         - id: RESOURCE-SERVICE
-          uri: lb://RESOURCE-SERVICE
+          uri: http://192.168.1.66:8089/
           predicates:
               - Path=/resource/**
 
