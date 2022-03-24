@@ -35,6 +35,7 @@ public class ResourcesController {
 
     @GetMapping(value = "/css/style.css")
     public String styleCreateAccount() {
+        System.out.println("where");
         return "css/account/style.css";
     }
 

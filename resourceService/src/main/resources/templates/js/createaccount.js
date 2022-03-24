@@ -1,4 +1,4 @@
-var serverUrl = "http://localhost:8088";
+var serverUrl = "http://192.168.1.108:8088";;
 window.onload = () => {
     console.log(sessionStorage.getItem("warrior"));
     console.log(sessionStorage.getItem("id"));

@@ -24,6 +24,7 @@ public class LoginImpl implements Login {
      */
 
     public Account login(Account account) {
+        System.out.println("LOGIN:  "+account);
         if (checkFields(account)) {
             return accountRepository.getAccountByUsername(account.getUsername());
         }

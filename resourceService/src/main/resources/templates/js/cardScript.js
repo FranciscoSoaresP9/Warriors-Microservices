@@ -1,5 +1,5 @@
 const warrior = JSON.parse(sessionStorage.getItem("warrior"));
-const serverUrl = "http://localhost:8088";
+const serverUrl = "http://192.168.1.108:8088";
 window.onload = () => {
     if(warrior==null){
         window.location = serverUrl + "/page/createwarrior";
@@ -168,17 +168,17 @@ async function  status(typeOfStatus) {
     console.log(typeOfStatus+"-")
     console.log(typeOfStatus==="Attack")
     switch (typeOfStatus){
-        case "Attack":
+        case "Attack  ":
             console.log("where")
             warrior.points.damage++;
             break;
-        case "Life":
+        case "Life  ":
             warrior.points.life++;
             break;
-        case "Armor":
+        case "Armor  ":
             warrior.points.armor++;
             break;
-        case "Speed":
+        case "Speed  ":
             warrior.points.speed++;
             break;
     }

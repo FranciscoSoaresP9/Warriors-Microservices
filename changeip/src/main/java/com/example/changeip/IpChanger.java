@@ -30,7 +30,6 @@ public class IpChanger {
             gateWayIp(newIp);
             loginIp(newIp);
             pageServiceIp(newIp);
-            registryIp(newIp);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,7 +62,7 @@ public class IpChanger {
     }
 
     private void pageServiceIp(String newIp) throws IOException {
-        File file = new File("..\\pageService\\src\\main\\resources\\application.properties");
+        File file = new File("..\\pagesService\\src\\main\\resources\\application.properties");
         change(file, newIp);
     }
 
@@ -73,7 +72,7 @@ public class IpChanger {
     }
 
     private void registryIp(String newIp) throws IOException {
-        File file = new File("..\\registryService\\src\\main\\resources\\application.properties");
+        File file = new File("..\\registry\\src\\main\\resources\\application.properties");
         change(file, newIp);
     }
 

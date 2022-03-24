@@ -6,6 +6,7 @@ import com.warriors.warrior.model.Warrior;
 import com.warriors.warrior.model.WarriorType;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,12 +16,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class RequestSender {
 
-    private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate= new RestTemplate();
+    @Value("${database.url}")
+    private String url;
 
-    @Autowired
+    /*@Autowired
     public RequestSender(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-    }
+    }*/
 
     public void associateWarriorToAccount(Integer accountId, Warrior warriorSaved) {
 
@@ -28,27 +31,29 @@ public class RequestSender {
                 createRequest(setJsonValueOfWarrior(warriorSaved)), String.class);
     }
 
-    public Points persistPointsInDB(Points points){
-       return restTemplate.postForObject("http://POINTS-SERVICE/savePoints/",
-               createRequest(setJsonValueOfPoints(points)),Points.class);
+    public Points persistPointsInDB(Points points) {
+        return restTemplate.postForObject("http://POINTS-SERVICE/savePoints/",
+                createRequest(setJsonValueOfPoints(points)), Points.class);
     }
 
     public Status persistStatusInDB(Status defaultStatus) {
         return restTemplate.postForObject("http://STATUS-SERVICE/saveStatus/",
-                createRequest(setJsonValueOfStatus(defaultStatus)),Status.class);
+                createRequest(setJsonValueOfStatus(defaultStatus)), Status.class);
     }
 
-    public Points updatePoints(Points pointsUpdated){
-         return restTemplate.postForObject("http://POINTS-SERVICE/updatePoints/",
-                createRequest(setJsonValueOfPoints(pointsUpdated)),Points.class);
+    public Points updatePoints(Points pointsUpdated) {
+        System.out.println(url+ "/points/updatePoints");
+        return restTemplate.postForObject(url+"/points/updatePoints",
+                createRequest(setJsonValueOfPoints(pointsUpdated)), Points.class);
     }
 
-    public Status updateStatus(Status statusUpdated){
-        return restTemplate.postForObject("http://STATUS-SERVICE/updateStatus/",
-                createRequest(setJsonValueOfStatus(statusUpdated)),Status.class);
+    public Status updateStatus(Status statusUpdated) {
+        System.out.println(url);
+        return restTemplate.postForObject(url+"/status/updateStatus/",
+                createRequest(setJsonValueOfStatus(statusUpdated)), Status.class);
     }
 
-    private  HttpEntity<String> createRequest(JSONObject jsonObject) {
+    private HttpEntity<String> createRequest(JSONObject jsonObject) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<>(jsonObject.toString(), headers);
@@ -68,19 +73,20 @@ public class RequestSender {
 
     private JSONObject setJsonValueOfPoints(Points points) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id",points.getId());
-        jsonObject.put("life",points.getLife());
-        jsonObject.put("armor",points.getArmor());
+        jsonObject.put("id", points.getId());
+        jsonObject.put("life", points.getLife());
+        jsonObject.put("armor", points.getArmor());
         jsonObject.put("damage", points.getDamage());
         jsonObject.put("speed", points.getSpeed());
         jsonObject.put("pointsAvailable", points.getPointsAvailable());
         return jsonObject;
     }
+
     private JSONObject setJsonValueOfStatus(Status status) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id",status.getId());
-        jsonObject.put("life",status.getLife());
-        jsonObject.put("armor",status.getArmor());
+        jsonObject.put("id", status.getId());
+        jsonObject.put("life", status.getLife());
+        jsonObject.put("armor", status.getArmor());
         jsonObject.put("damage", status.getDamage());
         jsonObject.put("speed", status.getSpeed());
         return jsonObject;

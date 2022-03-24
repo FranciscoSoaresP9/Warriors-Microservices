@@ -1,5 +1,5 @@
 const warrior = JSON.parse(sessionStorage.getItem("warrior"));
-const serverUrl = "http://localhost:8088";
+const serverUrl = "http://192.168.1.108:8088";
 window.onload = () => {
     if(warrior==null){
         window.location = serverUrl + "/page/createwarrior";

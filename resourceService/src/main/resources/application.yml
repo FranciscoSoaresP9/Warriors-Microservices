@@ -4,8 +4,3 @@ server:
 spring:
   application:
     name: RESOURCE-SERVICE
-
-
-
-
-
