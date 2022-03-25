@@ -8,6 +8,9 @@ import com.warriors.warrior.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.Optional;
+
 /**
  * Warrior Service
  **/
@@ -20,7 +23,7 @@ public class WarriorService implements Services<Warrior> {
     private final RequestSender requestSender;
 
     @Autowired
-    public WarriorService( WarriorRepository warriorRepository, WarriorStatusConvert warriorStatusConvert, WarriorFactory warriorFactory, RequestSender requestSender) {
+    public WarriorService(WarriorRepository warriorRepository, WarriorStatusConvert warriorStatusConvert, WarriorFactory warriorFactory, RequestSender requestSender) {
         this.warriorRepository = warriorRepository;
         this.warriorStatusConvert = warriorStatusConvert;
         this.warriorFactory = warriorFactory;
@@ -56,15 +59,21 @@ public class WarriorService implements Services<Warrior> {
         Warrior warrior = warriorFactory.buildWarrior(warriorDTO);
 
         Points defaultPoints = new Points(0, 0, 0, 0, 0);
-        Points points = requestSender.persistPointsInDB(defaultPoints);
+        Points points = null;
+        try {
+            points = requestSender.persistPointsInDB(defaultPoints);
+            warrior.setPoints(points);
 
-        warrior.setPoints(points);
+            Status defaultStatus = new Status(0, 0, 0, 0);
+            Status status = requestSender.persistStatusInDB(defaultStatus);
+            warrior.setStatus(status);
 
-        Status defaultStatus = new Status(0, 0, 0, 0);
-        Status status = requestSender.persistStatusInDB(defaultStatus);
-        warrior.setStatus(status);
+            requestSender.associateWarriorToAccount(warriorDTO.getAccountId(), warriorRepository.save(warrior));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        requestSender.associateWarriorToAccount(warriorDTO.getAccountId(), warriorRepository.save(warrior));
+
     }
 
 
@@ -75,19 +84,19 @@ public class WarriorService implements Services<Warrior> {
     }
 
     public Warrior updateStatus(Warrior warrior) {
-        System.out.println("BEFORE UPDATE POINTS");
-        requestSender.updatePoints(warrior.getPoints());
-        System.out.println("AFTER UPDATE POINTS");
-        System.out.println("BEFORE CONVERT");
-        Status statusChanged = warriorStatusConvert.pointsToStatus(warrior);
-        System.out.println("AFTER CONVERT");
-        System.out.println("BEFORE UPDATE STATUS");
-        requestSender.updateStatus(statusChanged);
-        System.out.println("AFTER UPDATE STATUS");
-        System.out.println("BEFORE GET WARRIOR");
-        Warrior warriorUpdated = get(warrior.getId());
-        System.out.println("AFTER GET WARRIOR");
-        return warriorUpdated;
+
+        try {
+            requestSender.updatePoints(warrior.getPoints());
+            Status statusChanged = warriorStatusConvert.pointsToStatus(warrior);
+            requestSender.updateStatus(statusChanged);
+            Warrior warriorUpdated = get(warrior.getId());
+            return warriorUpdated;
+        } catch (IOException e) {
+           return null;
+        }
+
+
+
 
     }
 

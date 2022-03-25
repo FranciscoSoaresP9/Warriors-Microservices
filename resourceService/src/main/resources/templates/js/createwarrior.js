@@ -62,7 +62,7 @@ async function handleSubmit(event) {
                 requestWarrior(sessionStorage.getItem("id"));
                 return;
             }
-         //   document.location.reload(true);
+           document.location.reload(true);
 
         }
     })

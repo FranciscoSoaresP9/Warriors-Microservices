@@ -11,12 +11,7 @@ public class IpChanger {
         Scanner scanner = new Scanner(System.in);
         String newIp = scanner.next();
         try {
-            accountIp(newIp);
-            resourcesIp(newIp);
-            loginIp(newIp);
-            pointsIp(newIp);
-            statusIp(newIp);
-            warriorIp(newIp);
+            gateWayYmlIp(newIp);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -27,6 +22,12 @@ public class IpChanger {
         Scanner scanner = new Scanner(System.in);
         String newIp = scanner.next();
         try {
+            accountIp(newIp);
+            resourcesIp(newIp);
+            loginIp(newIp);
+            pointsIp(newIp);
+            statusIp(newIp);
+            warriorIp(newIp);
             gateWayIp(newIp);
             loginIp(newIp);
             pageServiceIp(newIp);
@@ -54,6 +55,11 @@ public class IpChanger {
     private void gateWayIp(String newIp) throws IOException {
         File file = new File("..\\gateway\\src\\main\\resources\\application.properties");
         change(file, newIp);
+    }
+
+    private void gateWayYmlIp(String newIp) throws IOException {
+        File file = new File("..\\gateway\\src\\main\\resources\\application.yml");
+        changeGateWayServer(file, newIp);
     }
 
     private void loginIp(String newIp) throws IOException {
@@ -101,4 +107,59 @@ public class IpChanger {
         fileWriter.close();
     }
 
+    private void changeGateWayServer(File file, String newIp) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String line = bufferedReader.readLine();
+
+        int indexOfPort = line.lastIndexOf(":");
+        String port = line.substring(indexOfPort, line.length() - 1);
+
+        FileWriter fileWriter = new FileWriter(file);
+
+        fileWriter.write(buildProperties(newIp));
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    private String buildProperties(String newIp) {
+        return "server:\n" +
+                "  port: 8088 \n\n" +
+
+                "spring:\n" +
+                "  application:\n" +
+                "    name: API-GATEWAY\n" +
+                " cloud:\n" +
+                "   gateway:\n" +
+                "     routes:\n" +
+                "        - id: ACCOUNT-SERVICE\n" +
+                "          uri: http://" + newIp + ":8081/\n" +
+                "          predicates:\n" +
+                "            - Path=/account/**\n" +
+                "        - id: WARRIOR-SERVICE\n" +
+                "          uri: http://" + newIp + ":8083/\n" +
+                "          predicates:\n" +
+                "            - Path=/warrior/**\n" +
+                "        - id: POINTS-SERVICE\n" +
+                "          uri: http://" + newIp + ":8084/\n" +
+                "          predicates:\n" +
+                "            - Path=/points/**\n" +
+                "        - id: STATUS-SERVICE\n" +
+                "          uri: http://" + newIp + ":8085/\n" +
+                "          predicates:\n" +
+                "            - Path=/status/**\n" +
+                "        - id: LOGIN-SERVICE\n" +
+                "          uri: http://" + newIp + ":8087/\n" +
+                "          predicates:\n" +
+                "            - Path=/login/**\n" +
+                "        - id: PAGE-SERVICE\n" +
+                "          uri: lb://PAGE-SERVICE\n" +
+                "          predicates:\n" +
+                "             - Path=/page/**\n" +
+                "        - id: RESOURCE-SERVICE\n" +
+                "          uri: http://" + newIp + ":8089/\n" +
+                "          predicates:\n" +
+                "             - Path=/resource/**";
+
+
+    }
 }

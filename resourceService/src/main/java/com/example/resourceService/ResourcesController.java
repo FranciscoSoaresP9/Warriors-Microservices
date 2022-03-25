@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = "/resource")
 public class ResourcesController {
 
-
     //------------CSS----------------------------
     @GetMapping(path = "/css/stylecreatewarrior.css")
     public String stylecreatewarrior() {
@@ -35,7 +34,6 @@ public class ResourcesController {
 
     @GetMapping(value = "/css/style.css")
     public String styleCreateAccount() {
-        System.out.println("where");
         return "css/account/style.css";
     }
 

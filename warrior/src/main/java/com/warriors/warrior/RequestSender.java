@@ -13,43 +13,51 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.*;
+
 @Service
 public class RequestSender {
 
     private final RestTemplate restTemplate= new RestTemplate();
-    @Value("${database.url}")
-    private String url;
 
     /*@Autowired
     public RequestSender(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }*/
 
-    public void associateWarriorToAccount(Integer accountId, Warrior warriorSaved) {
+    public void associateWarriorToAccount(Integer accountId, Warrior warriorSaved) throws IOException {
 
-        restTemplate.postForObject("http://ACCOUNT-SERVICE/addWarrior/" + accountId,
-                createRequest(setJsonValueOfWarrior(warriorSaved)), String.class);
+            restTemplate.postForObject("http://"+getIp()+":8088/account/addWarrior/" + accountId,
+                    createRequest(setJsonValueOfWarrior(warriorSaved)), String.class);
     }
 
-    public Points persistPointsInDB(Points points) {
-        return restTemplate.postForObject("http://POINTS-SERVICE/savePoints/",
+    private String getIp() throws IOException {
+        File file = new File("..\\warrior\\src\\main\\resources\\application.properties");
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        String line = bufferedReader.readLine();
+
+        int lastIndexOfIp = line.lastIndexOf(":");
+
+        return line.substring(line.indexOf("//")+2,lastIndexOfIp);
+    }
+
+    public Points persistPointsInDB(Points points) throws IOException {
+        return restTemplate.postForObject("http://"+getIp()+":8088/points/savePoints/",
                 createRequest(setJsonValueOfPoints(points)), Points.class);
     }
 
-    public Status persistStatusInDB(Status defaultStatus) {
-        return restTemplate.postForObject("http://STATUS-SERVICE/saveStatus/",
+    public Status persistStatusInDB(Status defaultStatus) throws IOException {
+        return restTemplate.postForObject("http://"+getIp()+":8088/status/saveStatus/",
                 createRequest(setJsonValueOfStatus(defaultStatus)), Status.class);
     }
 
-    public Points updatePoints(Points pointsUpdated) {
-        System.out.println(url+ "/points/updatePoints");
-        return restTemplate.postForObject(url+"/points/updatePoints",
+    public Points updatePoints(Points pointsUpdated) throws IOException {
+        return restTemplate.postForObject("http://"+getIp()+":8088/points/updatePoints",
                 createRequest(setJsonValueOfPoints(pointsUpdated)), Points.class);
     }
 
-    public Status updateStatus(Status statusUpdated) {
-        System.out.println(url);
-        return restTemplate.postForObject(url+"/status/updateStatus/",
+    public Status updateStatus(Status statusUpdated) throws IOException {
+        return restTemplate.postForObject("http://"+getIp()+"8088:/status/updateStatus/",
                 createRequest(setJsonValueOfStatus(statusUpdated)), Status.class);
     }
 

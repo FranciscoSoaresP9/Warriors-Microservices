@@ -123,6 +123,7 @@ public class AccountService implements warriors.services.Services<Account> {
             return;
         }
         account.creatWarrior(warrior);
+        System.out.println(account);
         accountRepository.save(account);
     }
 }
