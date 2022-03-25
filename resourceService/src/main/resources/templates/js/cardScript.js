@@ -1,5 +1,4 @@
 const warrior = JSON.parse(sessionStorage.getItem("warrior"));
-const serverUrl = "http://192.168.1.108:8088";
 window.onload = () => {
     if(warrior==null){
         window.location = serverUrl + "/page/createwarrior";
@@ -166,7 +165,7 @@ async function  status(typeOfStatus) {
     }
     var warriorToSend;
     console.log(typeOfStatus+"-")
-    console.log(typeOfStatus==="Attack")
+    console.log(typeOfStatus==="Attack  ")
     switch (typeOfStatus){
         case "Attack  ":
             console.log("where")
@@ -188,12 +187,12 @@ async function  status(typeOfStatus) {
     await $.ajax({
         type: 'post',
         data:warriorToSend,
-        url: serverUrl + '/warrior/updatestatus',
+        url:  '../warrior/updatestatus',
         contentType: "application/json; charset=utf-8",
         traditional: true,
         success: (data) => {
             sessionStorage.setItem("warrior",JSON.stringify(data));
-         //   document.location.reload(true);
+          document.location.reload(true);
         }
     })
 }

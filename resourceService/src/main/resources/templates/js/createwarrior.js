@@ -1,14 +1,13 @@
-var serverUrl = "http://192.168.1.108:8088";
 window.onload = () => {
     console.log(sessionStorage.getItem("warrior"));
     console.log(sessionStorage.getItem("id"));
     if (sessionStorage.getItem("id") === "null") {
         if(sessionStorage.getItem("id") === null){
-            window.location = serverUrl + "/mainpage";
+            window.location =  "../mainpage";
         }
     }
     if(sessionStorage.getItem("warrior")!=="null"){
-        window.location = serverUrl + "/page/warriorstatus";
+        window.location =  "../page/warriorstatus";
     }
 }
 
@@ -52,7 +51,7 @@ async function handleSubmit(event) {
 
     await $.ajax({
         type: 'post',
-        url: serverUrl + '/warrior/createwarrior',
+        url: '../warrior/createwarrior',
         data: jsonValue,
         contentType: "application/json; charset=utf-8",
         traditional: true,
@@ -74,14 +73,14 @@ function requestWarrior(accountId) {
     console.log(accountId);
    $.ajax({
         type: 'get',
-        url: serverUrl + '/account/getwarrior/'+accountId,
+        url:  '../account/getwarrior/'+accountId,
         contentType: "application/json; charset=utf-8",
         traditional: true,
         success: (data) => {
             if (data !== "") {
 
                 sessionStorage.setItem("warrior",JSON.stringify(data));
-                window.location = serverUrl + "/page/warriorstatus";
+                window.location =  "../page/warriorstatus";
                 return;
             }
         }

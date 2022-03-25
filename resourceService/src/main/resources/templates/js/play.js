@@ -1,8 +1,8 @@
 const warrior = JSON.parse(sessionStorage.getItem("warrior"));
-const serverUrl = "http://192.168.1.108:8088";
 window.onload = () => {
+    console.log(window.location.host);
     if(warrior==null){
-        window.location = serverUrl + "/page/createwarrior";
+        window.location =  "../page/createwarrior";
         return;
     }
     setUpWarriorInfo();
@@ -181,7 +181,7 @@ async function  status(typeOfStatus) {
     await $.ajax({
         type: 'post',
         data:warriorToSend,
-        url: serverUrl + '/warrior/updatestatus',
+        url: '../warrior/updatestatus',
         contentType: "application/json; charset=utf-8",
         traditional: true,
         success: (data) => {
