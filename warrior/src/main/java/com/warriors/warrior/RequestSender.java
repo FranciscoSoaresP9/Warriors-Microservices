@@ -57,7 +57,7 @@ public class RequestSender {
     }
 
     public Status updateStatus(Status statusUpdated) throws IOException {
-        return restTemplate.postForObject("http://"+getIp()+"8088:/status/updateStatus/",
+        return restTemplate.postForObject("http://"+getIp()+":8088/status/updateStatus/",
                 createRequest(setJsonValueOfStatus(statusUpdated)), Status.class);
     }
 

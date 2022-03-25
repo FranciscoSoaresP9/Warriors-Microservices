@@ -128,7 +128,7 @@ public class IpChanger {
                 "spring:\n" +
                 "  application:\n" +
                 "    name: API-GATEWAY\n" +
-                " cloud:\n" +
+                "  cloud:\n" +
                 "   gateway:\n" +
                 "     routes:\n" +
                 "        - id: ACCOUNT-SERVICE\n" +
@@ -152,11 +152,11 @@ public class IpChanger {
                 "          predicates:\n" +
                 "            - Path=/login/**\n" +
                 "        - id: PAGE-SERVICE\n" +
-                "          uri: lb://PAGE-SERVICE\n" +
+                "          uri: lb://PAGE-SERVICE/\n" +
                 "          predicates:\n" +
                 "             - Path=/page/**\n" +
                 "        - id: RESOURCE-SERVICE\n" +
-                "          uri: http://" + newIp + ":8089/\n" +
+                "          uri: lb://RESOURCE-SERVICE//\n" +
                 "          predicates:\n" +
                 "             - Path=/resource/**";
 
