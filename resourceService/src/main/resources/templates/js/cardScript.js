@@ -1,8 +1,7 @@
 const warrior = JSON.parse(sessionStorage.getItem("warrior"));
-const serverUrl = "http://192.168.1.108:8088";
 window.onload = () => {
     if(warrior==null){
-        window.location = serverUrl + "/page/createwarrior";
+        window.location = "../page/createwarrior";
         return;
     }
 setUpWarriorInfo();
@@ -166,7 +165,7 @@ async function  status(typeOfStatus) {
     }
     var warriorToSend;
     console.log(typeOfStatus+"-")
-    console.log(typeOfStatus==="Attack")
+    console.log(typeOfStatus==="Attack  ")
     switch (typeOfStatus){
         case "Attack  ":
             console.log("where")
@@ -186,17 +185,31 @@ async function  status(typeOfStatus) {
      warriorToSend= JSON.stringify(warrior);
      console.log(warriorToSend);
     await $.ajax({
-        type: 'post',
+        type: 'put',
         data:warriorToSend,
-        url: serverUrl + '/warrior/updatestatus',
+        url:  '../warrior/updatestatus',
         contentType: "application/json; charset=utf-8",
         traditional: true,
         success: (data) => {
             sessionStorage.setItem("warrior",JSON.stringify(data));
-         //   document.location.reload(true);
+          document.location.reload(true);
+        },
+        error: (status)=>{
+            alert(status.statusText);
+            alert("Please try again later");
+            document.location.reload(true);
+
         }
     })
 }
+function logout() {
+    console.log("logout");
+    if (sessionStorage.getItem("id") !== "null") {
+        sessionStorage.setItem("id", null);
+        window.location =  "../page/mainpage"
+        return;
+    }
 
+}
 
 $('#live-poll-area .answer-list').createBarchart();

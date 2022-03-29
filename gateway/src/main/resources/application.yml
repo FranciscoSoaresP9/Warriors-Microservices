@@ -1,10 +1,10 @@
 server:
-  port: 8088 
+  port: 8088
 
 spring:
   application:
     name: API-GATEWAY
- cloud:
+  cloud:
    gateway:
      routes:
         - id: ACCOUNT-SERVICE
@@ -32,6 +32,6 @@ spring:
           predicates:
              - Path=/page/**
         - id: RESOURCE-SERVICE
-          uri: http://192.168.1.66:8089/
+          uri: http://192.168.1.84:8089/
           predicates:
              - Path=/resource/**

@@ -1,10 +1,9 @@
-var serverUrl = "http://192.168.1.108:8088";
 window.onload = () => {
     console.log(sessionStorage.getItem("warrior"));
     console.log(sessionStorage.getItem("id"));
     if(sessionStorage.getItem("id") !== "null"){
         if(sessionStorage.getItem("id") !== null){
-            window.location = serverUrl + "/page/mainpageloged";
+            window.location =  "../page/mainpageloged";
         }
     }
 }
@@ -25,7 +24,7 @@ async function handleSubmit(event) {
         document.getElementById("loader").classList.replace("loader-invisible", "loader");
         await $.ajax({
             type: 'post',
-            url: serverUrl + '/account/add',
+            url: '../account/add',
             data: jsonValue,
             contentType: "application/json; charset=utf-8",
             traditional: true,
@@ -45,7 +44,7 @@ async function handleSubmit(event) {
                     return;
                 }
                 if (data === "Account created") {
-                    window.location = serverUrl + "/page/login";
+                    window.location =  "../page/login";
                     document.getElementById("loader").classList.replace("loader", "loader-invisible");
                     return;
                 }
@@ -53,8 +52,16 @@ async function handleSubmit(event) {
                 document.getElementById("loader").classList.replace("loader", "loader-invisible");
                 document.location.reload(true);
 
-            }
-        });
+            },
+            error: (status)=>{
+                alert(status.statusText);
+                alert("Please try again later");
+                document.location.reload(true);
+
+        }
+        }
+        );
+
     }
     ;
 
