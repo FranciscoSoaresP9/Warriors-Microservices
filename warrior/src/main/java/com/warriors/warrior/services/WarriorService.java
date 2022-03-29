@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Warrior Service
@@ -58,13 +57,13 @@ public class WarriorService implements Services<Warrior> {
 
         Warrior warrior = warriorFactory.buildWarrior(warriorDTO);
 
-        Points defaultPoints = new Points(0, 0, 0, 0, 0);
+        Points defaultPoints = warrior.getPoints();
         Points points = null;
         try {
             points = requestSender.persistPointsInDB(defaultPoints);
             warrior.setPoints(points);
 
-            Status defaultStatus = new Status(0, 0, 0, 0);
+            Status defaultStatus = warriorStatusConvert.pointsToStatus(warrior);
             Status status = requestSender.persistStatusInDB(defaultStatus);
             warrior.setStatus(status);
 
@@ -83,6 +82,36 @@ public class WarriorService implements Services<Warrior> {
 
     }
 
+    public Warrior updateExperience( Integer warriorId,int experience) {
+        Warrior warrior = get(warriorId);
+        checkLvlUp(warrior,experience);
+
+
+        return warriorRepository.save(warrior);
+    }
+
+    private void checkLvlUp(Warrior warrior,int experience) {
+        int maxExperience= calculateMaxExperience(warrior);
+        if((warrior.getExperience()+experience)>=maxExperience){
+            warrior.lvlUp();
+            Points points= warrior.getPoints();
+            points.setPointsAvailable(points.getPointsAvailable()+1);
+            try {
+                requestSender.updatePoints(points);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            warrior.setExperience(( warrior.getExperience()+experience)-maxExperience);
+        return;
+        }
+        warrior.earnExperience(experience);
+    }
+
+    private int calculateMaxExperience(Warrior warrior){
+        int lvl= warrior.getLvl();
+        return lvl*100;
+    }
+
     public Warrior updateStatus(Warrior warrior) {
 
         try {
@@ -92,10 +121,8 @@ public class WarriorService implements Services<Warrior> {
             Warrior warriorUpdated = get(warrior.getId());
             return warriorUpdated;
         } catch (IOException e) {
-           return null;
+            return null;
         }
-
-
 
 
     }

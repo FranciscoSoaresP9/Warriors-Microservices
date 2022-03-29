@@ -62,6 +62,9 @@ public class Warrior  {
     public void setExperience(int experience) {
         this.experience = experience;
     }
+    public void earnExperience(int experience){
+        this.experience+=experience;
+    }
 
     public Points getPoints() {
         return points;
@@ -91,5 +94,9 @@ public class Warrior  {
                 ", points=" + points +
                 ", status=" + status +
                 '}';
+    }
+
+    public void lvlUp() {
+    setLvl(getLvl()+1);
     }
 }

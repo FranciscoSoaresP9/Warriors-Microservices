@@ -1,5 +1,6 @@
 package com.warriors.warrior.controllers;
 
+import com.warriors.warrior.model.WarriorUpdateExperienceDTO;
 import com.warriors.warrior.restservice.Registry;
 import com.warriors.warrior.services.WarriorService;
 import com.warriors.warrior.model.Warrior;
@@ -56,8 +57,16 @@ public class WarriorRestController {
 
     }
 
-    @PostMapping(path = "/updatestatus")
+    @PutMapping(path = "/updatestatus")
     public Warrior upDateStatus(@RequestBody Warrior warrior) {
         return warriorService.updateStatus(warrior);
+    }
+
+    @PostMapping(path = "/updateexperience")
+    public Warrior upDateExeperience(@RequestBody WarriorUpdateExperienceDTO warriorUpdateExperienceDTO) {
+        System.out.println("--------------------------------------------");
+        System.out.println(warriorUpdateExperienceDTO.toString());
+        return warriorService.
+                updateExperience(warriorUpdateExperienceDTO.getId(),warriorUpdateExperienceDTO.getExperience());
     }
 }

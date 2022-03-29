@@ -1,4 +1,4 @@
-package com.warriors.warrior.model;
+package com.example.play.character.warrior;
 
 public class WarriorUpdateExperienceDTO {
    private Integer id;

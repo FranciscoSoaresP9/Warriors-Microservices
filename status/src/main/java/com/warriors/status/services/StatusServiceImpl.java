@@ -20,7 +20,6 @@ public class StatusServiceImpl implements StatusService<Status> {
     }
 
     public Status update(Status status){
-        System.out.println(status);
         Status statusChanged= get(status.getId());
         statusChanged.setSpeed(status.getSpeed());
         statusChanged.setLife(status.getLife());
@@ -28,5 +27,10 @@ public class StatusServiceImpl implements StatusService<Status> {
         statusChanged.setDamage(status.getDamage());
 
        return statusRepository.save(statusChanged);
+    }
+
+    @Override
+    public Status Save(Status toSave) {
+        return statusRepository.save(toSave);
     }
 }

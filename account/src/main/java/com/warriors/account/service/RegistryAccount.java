@@ -13,13 +13,13 @@ import java.util.HashMap;
 public class RegistryAccount implements Registry<Account> {
     private final AccountService accountService;
     private final Validations validations;
-
-
+    private final EmailServiceImpl emailService;
     @Autowired
-    public RegistryAccount(AccountService accountService, Validations validations) {
+    public RegistryAccount(AccountService accountService, Validations validations, EmailServiceImpl emailService) {
         this.accountService = accountService;
         this.validations = validations;
 
+        this.emailService = emailService;
     }
 
     @Override
@@ -39,11 +39,12 @@ public class RegistryAccount implements Registry<Account> {
         }
 
 
-   /*     try {
-            emailServiceImpl.sendEmail(account);
+        try {
+            emailService.sendEmail(account);
         } catch (Exception exception) {
+            System.out.println(exception);
             return Messages.GENERIC_ERROR.message;
-        }*/
+        }
 
         accountService.saveOrUpdate(account);
         return Messages.ACCOUNT_CREATED.message;

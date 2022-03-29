@@ -1,21 +1,18 @@
 package com.example.play.character.monster;
 
 
-import com.example.play.character.Personage;
 import com.example.play.character.PersonageType;
 import com.example.play.character.Status;
-import com.example.play.character.warrior.Warrior;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MonsterFabric {
-    public Monster createMonster(Personage warrior) {
+    public Monster createMonster(com.example.play.character.Personage warrior) {
 
         double randomType = Math.random();
         Monster monster = new Monster();
         monster.setPersonageType(PersonageType.MONSTER);
         monster.setLvl(setLvl(warrior.getLvl()));
-        System.out.println("Level of monster: "+monster.getLvl());
         if (randomType <= 0.40) {
             monster.setType(MonsterType.LOW);
             monster.setExperience(3 * monster.getLvl());
@@ -69,7 +66,6 @@ public class MonsterFabric {
         final long MIN = -3;
         final long MAX = 3;
         long randomLvl = Math.round(Math.random() * (MAX - (MIN) + 1) + MIN);
-        System.out.println("RANDOM LVL------------->"+randomLvl);
         return (randomLvl + warriorLvl <=0) ? 1 : (int) (randomLvl + warriorLvl);
     }
 }

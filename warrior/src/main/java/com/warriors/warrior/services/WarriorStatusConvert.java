@@ -21,12 +21,8 @@ public class WarriorStatusConvert {
         status.setLife((warriorType.life*2)* points.getLife());
         status.setSpeed((warriorType.speed)+ points.getSpeed()/4);
 
-        System.out.println("-------------------STATUS---------------");
-        System.out.println(status);
-        System.out.println("-------------------DAMAGE---------------");
-        System.out.println(warriorType.damage);
-        System.out.println("-------------------Points---------------");
-        System.out.println(points);
+
+        System.out.println(status.toString());
 
         return status;
     }

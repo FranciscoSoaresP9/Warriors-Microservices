@@ -11,22 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/status")
 public class StatusController {
-    private final StatusRepository statusRepository;
     private final StatusService<Status> statusService;
 
 
-    public StatusController(StatusRepository statusRepository, StatusService<Status> statusService) {
-        this.statusRepository = statusRepository;
+    public StatusController(StatusService<Status> statusService) {
+
         this.statusService = statusService;
     }
 
     @PostMapping("/saveStatus")
     public Status associateStatusToWarrior(@RequestBody Status status) {
-        return statusRepository.save(status);
+        return statusService.Save(status);
     }
 
     @PostMapping("/updateStatus")
-    public Status updateStatus(@RequestBody Status status){
+    public Status updateStatus(@RequestBody Status status) {
         return statusService.update(status);
     }
 }
