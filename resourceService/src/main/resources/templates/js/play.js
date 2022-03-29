@@ -179,7 +179,7 @@ async function  status(typeOfStatus) {
     warrior.points.pointsAvailable--;
     warriorToSend= JSON.stringify(warrior);
     await $.ajax({
-        type: 'post',
+        type: 'put',
         data:warriorToSend,
         url: '../warrior/updatestatus',
         contentType: "application/json; charset=utf-8",
@@ -187,6 +187,12 @@ async function  status(typeOfStatus) {
         success: (data) => {
             sessionStorage.setItem("warrior",JSON.stringify(data));
             document.location.reload(true);
+        },
+        error: (status)=>{
+            alert(status.statusText);
+            alert("Please try again later");
+            document.location.reload(true);
+
         }
     })
 }

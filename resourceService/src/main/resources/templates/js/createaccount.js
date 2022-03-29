@@ -52,8 +52,16 @@ async function handleSubmit(event) {
                 document.getElementById("loader").classList.replace("loader", "loader-invisible");
                 document.location.reload(true);
 
-            }
-        });
+            },
+            error: (status)=>{
+                alert(status.statusText);
+                alert("Please try again later");
+                document.location.reload(true);
+
+        }
+        }
+        );
+
     }
     ;
 

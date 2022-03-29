@@ -36,6 +36,12 @@ async function handleSubmit(event) {
             }
             document.getElementById("loader").classList.replace("loader", "loader-invisible");
             alert("User or password wrong");
+        },
+        error: (status)=>{
+            alert(status.statusText);
+            alert("Please try again later");
+            document.location.reload(true);
+
         }
     });
 

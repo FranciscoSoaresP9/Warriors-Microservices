@@ -83,7 +83,13 @@ function requestWarrior(accountId) {
                 window.location =  "../page/warriorstatus";
                 return;
             }
-        }
+        },
+       error: (status)=>{
+           alert(status.statusText);
+           alert("Please try again later");
+           document.location.reload(true);
+
+       }
     })
 }
 
