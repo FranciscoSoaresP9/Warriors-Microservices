@@ -67,7 +67,7 @@ public class MainController {
 
     @RequestMapping(method = RequestMethod.GET,path = "/play")
     public String play() {
-        return "warrior/card/play.html";
+        return "play/pvmfight.html";
     }
 
 }
