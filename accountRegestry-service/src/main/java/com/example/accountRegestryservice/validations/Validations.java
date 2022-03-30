@@ -1,11 +1,14 @@
-package com.warriors.account.validations;
+package com.example.accountRegestryservice.validations;
 
-import com.warriors.account.messages.Messages;
-import com.warriors.account.model.Account;
-import com.warriors.account.service.AccountService;
+
+import com.example.accountRegestryservice.RequestSender;
+import com.example.accountRegestryservice.messages.Messages;
+import com.example.accountRegestryservice.model.Account;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 /**
@@ -13,20 +16,21 @@ import java.util.HashMap;
  */
 @Service
 public class Validations {
-    private final AccountService accountService;
+
+    private final RequestSender requestSender;
 
     @Autowired
-    public Validations(AccountService accountService) {
-        this.accountService = accountService;
-
+    public Validations(RequestSender requestSender) {
+        this.requestSender = requestSender;
     }
+
 
     /**
      * Check if the fields are filled
      *
      * @param account
      */
-  private boolean checkFieldsAreFill(Account account) {
+    private boolean checkFieldsAreFill(Account account) {
         if (account == null) {
 
             return false;
@@ -52,21 +56,28 @@ public class Validations {
         return false;
     }
 
-    public  HashMap<String,Boolean> checkFieldsOfAccountCreating(Account account) {
-        HashMap<String,Boolean> validation= new HashMap<>();
+    public HashMap<String, Boolean> checkFieldsOfAccountCreating(Account account) {
+        HashMap<String, Boolean> validation = new HashMap<>();
 
-        if (accountService.isUserNameExist(account.getUsername())) {
-           validation.put(Messages.USERNAME_TAKEN.message,false);
-            return validation;
+        try {
+            if (requestSender.isUserNameExist(account.getUsername())) {
+                validation.put(Messages.USERNAME_TAKEN.message, false);
+                return validation;
+            }
+            if (requestSender.isEmailExist(account.getEmail())) {
+                validation.put(Messages.EMAIL_TAKEN.message, false);
+                return validation;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        if (accountService.isEmailExist(account.getEmail())) {
-            validation.put(Messages.EMAIL_TAKEN.message,false);
-            return validation;
-        }
+
 
         if (!checkFieldsAreFill(account)) {
-            validation.put(Messages.FILL_THE_FIELDS.message,false);
+            validation.put(Messages.FILL_THE_FIELDS.message, false);
             return validation;
         }
 
@@ -75,12 +86,12 @@ public class Validations {
         }
 
         if (!checkNumberOfChars(account.getUsername(), ValidationsProperties.USERNAME_CHARS_NUMBER.value)) {
-            validation.put(Messages.NUMBER_OF_USERNAME_CHARS.message,false);
+            validation.put(Messages.NUMBER_OF_USERNAME_CHARS.message, false);
             return validation;
 
         }
         if (!checkNumberOfChars(account.getPassword(), ValidationsProperties.PASSWORD_CHARS_NUMBER.value)) {
-            validation.put(Messages.NUMBER_OF_PASSWORD_CHARS.message,false);
+            validation.put(Messages.NUMBER_OF_PASSWORD_CHARS.message, false);
             return validation;
         }
         validation.put(Messages.ACCOUNT_CREATED.message, true);

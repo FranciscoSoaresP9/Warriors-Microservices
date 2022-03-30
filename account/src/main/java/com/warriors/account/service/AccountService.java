@@ -82,7 +82,7 @@ public class AccountService implements warriors.services.Services<Account> {
     /**
      * Check if username exist
      */
-    public boolean checkUserNameExist(String userName) {
+    public boolean isUserNameExist(String userName) {
 
         List<String> allUserName = new LinkedList<>();
         Iterable<Account> accounts = getAll();
@@ -98,7 +98,7 @@ public class AccountService implements warriors.services.Services<Account> {
      *
      * @param email
      */
-    public boolean checkEmailExist(String email) {
+    public boolean isEmailExist(String email) {
 
         List<String> allEmails = new LinkedList<>();
         Iterable<Account> accounts = getAll();

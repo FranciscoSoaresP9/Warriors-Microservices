@@ -1,5 +1,6 @@
 package com.warriors.account.Controller;
 
+import com.warriors.account.messages.Messages;
 import com.warriors.account.model.Account;
 import com.warriors.account.service.AccountService;
 import com.warriors.account.service.Registry;
@@ -31,7 +32,9 @@ public class AccountRestController {
 
     @PostMapping(path = "/add")
     public String registryAccount(@RequestBody Account account) {
-        return registry.registry(account);
+        System.out.println(account);
+        accountService.saveOrUpdate(account);
+        return Messages.ACCOUNT_CREATED.message;
     }
 
     @PostMapping(path = "/addWarrior/{id}")
@@ -44,6 +47,15 @@ public class AccountRestController {
     public Warrior getWarriorOfAccount(@PathVariable Integer accountId){
         System.out.println(accountService.get(accountId).getWarrior());
        return accountService.get(accountId).getWarrior();
+    }
+
+    @GetMapping(path = "/isUserNameExist/{userName}")
+    public Boolean isUsernameExist(@PathVariable String userName){
+        return accountService.isUserNameExist(userName);
+    }
+    @GetMapping(path = "/isEmailExist/{email}")
+    public Boolean isEmailExist(@PathVariable String email){
+        return accountService.isEmailExist(email);
     }
 
 
