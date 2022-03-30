@@ -1,11 +1,12 @@
-const warrior = JSON.parse(sessionStorage.getItem("warrior"));
+var warrior = JSON.parse(sessionStorage.getItem("warrior"));
 window.onload = () => {
     if(warrior==null){
         window.location = "../page/createwarrior";
         return;
     }
 setUpWarriorInfo();
-
+    console.log(warrior.id)
+    updateStatus(warrior.id);
 }
 
 const target = {
@@ -168,10 +169,10 @@ async function  status(typeOfStatus) {
     console.log(typeOfStatus==="Attack  ")
     switch (typeOfStatus){
         case "Attack  ":
-            console.log("where")
             warrior.points.damage++;
             break;
-        case "Life  ":
+        case "Life   ":
+            console.log("LIFE")
             warrior.points.life++;
             break;
         case "Armor  ":
@@ -183,7 +184,7 @@ async function  status(typeOfStatus) {
     }
     warrior.points.pointsAvailable--;
      warriorToSend= JSON.stringify(warrior);
-     console.log(warriorToSend);
+     console.log("Warrior to send --_>"+warriorToSend);
     await $.ajax({
         type: 'put',
         data:warriorToSend,
@@ -192,7 +193,7 @@ async function  status(typeOfStatus) {
         traditional: true,
         success: (data) => {
             sessionStorage.setItem("warrior",JSON.stringify(data));
-          document.location.reload(true);
+            document.location.reload(true);
         },
         error: (status)=>{
             alert(status.statusText);
@@ -213,3 +214,21 @@ function logout() {
 }
 
 $('#live-poll-area .answer-list').createBarchart();
+ async function updateStatus(warriorId) {
+    await $.ajax({
+        type: 'get',
+        url: '../warrior/api/get/' + warriorId,
+        traditional: true,
+        success: (data) => {
+
+            sessionStorage.setItem("warrior", JSON.stringify(data));
+            warrior=data;
+        },
+        error: (status) => {
+            alert(status.statusText);
+            alert("Please try again later");
+            document.location.reload(true);
+
+        }
+    })
+}

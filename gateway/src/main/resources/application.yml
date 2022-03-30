@@ -35,3 +35,7 @@ spring:
           uri: http://192.168.1.84:8089/
           predicates:
              - Path=/resource/**
+        - id: PLAY-SERVICE
+          uri: http://192.168.1.66:8090/
+          predicates:
+             - Path=/play/**

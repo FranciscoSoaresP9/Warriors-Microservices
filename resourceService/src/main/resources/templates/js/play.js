@@ -1,13 +1,15 @@
 const warrior = JSON.parse(sessionStorage.getItem("warrior"));
 window.onload = () => {
     console.log(window.location.host);
-    if(warrior==null){
-        window.location =  "../page/createwarrior";
+    if (warrior == null) {
+        window.location = "../page/createwarrior";
         return;
     }
     setUpWarriorInfo();
 
 }
+
+
 
 const target = {
     clicked: 0,
@@ -15,28 +17,30 @@ const target = {
     btn: document.querySelector("a.btn"),
     fw: document.querySelector("span.followers")
 };
+
 function setUpWarriorInfo() {
     console.log(warrior);
-    document.getElementById("warriorLvl").innerText=warrior.lvl;
-    document.getElementById("warriorImg").src="../resource/img/"+warrior.warriorType.toLowerCase()+".jpeg";
+    document.getElementById("warriorLvl").innerText = warrior.lvl;
+    document.getElementById("warriorImg").src = "../resource/img/" + warrior.warriorType.toLowerCase() + ".jpeg";
     document.getElementById("warriorName").innerText = warrior.name;
     document.getElementById("warriorType").innerText = warrior.warriorType;
-    document.getElementById("pointAvailable").innerText=warrior.points.pointsAvailable;
+    document.getElementById("pointAvailable").innerText = warrior.points.pointsAvailable;
 
 }
+
 let percentageArray = new Array();
 percentageArray.push(warrior.lvl);
-percentageArray.push(warrior.points.damage*2);
-percentageArray.push(warrior.points.life*2);
-percentageArray.push(warrior.points.armor*2);
-percentageArray.push(warrior.points.speed*2);
+percentageArray.push(warrior.points.damage * 2);
+percentageArray.push(warrior.points.life * 2);
+percentageArray.push(warrior.points.armor * 2);
+percentageArray.push(warrior.points.speed * 2);
 
 var answerArray = new Array();
 answerArray.push('Experience');
-answerArray.push('Atack:  '+warrior.status.damage);
-answerArray.push('Life:   '+warrior.status.life);
-answerArray.push('Armor:  '+warrior.status.armor);
-answerArray.push('Speed:  '+warrior.status.speed);
+answerArray.push('Atack:  ' + warrior.status.damage);
+answerArray.push('Life:   ' + warrior.status.life);
+answerArray.push('Armor:  ' + warrior.status.armor);
+answerArray.push('Speed:  ' + warrior.status.speed);
 
 $.fn.createBarchart = function (optionvariables) {
     var chartContainer = $(this);
@@ -56,13 +60,13 @@ $.fn.createBarchart = function (optionvariables) {
             percentageValue = percentageArray[index].toString(),
             answerPercentage = $('<span/>', {class: 'percentage', text: percentageValue.replace('.', ',') + '%'}),
             barTrack = $('<span/>', {class: 'bar-track'}),
-            button=$('<button/>',{text:"+",id:"status-button",onclick:"status('"+value+"')"}),
+            button = $('<button/>', {text: "+", id: "status-button", onclick: "status('" + value + "')"}),
             bar = $('<span />', {class: 'bar', style: 'width: ' + percentageValue + '%;'});
 
         chartAnswer.appendTo(barChart);
         answerLabel.appendTo(chartAnswer);
         answerPercentage.appendTo(chartAnswer);
-        if(value!="Experience"){
+        if (value != "Experience") {
             button.appendTo(answerPercentage);
         }
         barTrack.appendTo(chartAnswer);
@@ -154,15 +158,15 @@ $.fn.chart = function (optionvariables) {
     });
 };
 
-async function  status(typeOfStatus) {
+async function status(typeOfStatus) {
 
-    let warrior= JSON.parse(sessionStorage.getItem("warrior"));
-    if(warrior.points.pointsAvailable<=0){
+    let warrior = JSON.parse(sessionStorage.getItem("warrior"));
+    if (warrior.points.pointsAvailable <= 0) {
         alert("You dont have points for that");
         return;
     }
     let warriorToSend;
-    switch (typeOfStatus){
+    switch (typeOfStatus) {
         case "Atack":
             warrior.points.damage++;
             break;
@@ -177,18 +181,18 @@ async function  status(typeOfStatus) {
             break;
     }
     warrior.points.pointsAvailable--;
-    warriorToSend= JSON.stringify(warrior);
+    warriorToSend = JSON.stringify(warrior);
     await $.ajax({
         type: 'put',
-        data:warriorToSend,
+        data: warriorToSend,
         url: '../warrior/updatestatus',
         contentType: "application/json; charset=utf-8",
         traditional: true,
         success: (data) => {
-            sessionStorage.setItem("warrior",JSON.stringify(data));
+            sessionStorage.setItem("warrior", JSON.stringify(data));
             document.location.reload(true);
         },
-        error: (status)=>{
+        error: (status) => {
             alert(status.statusText);
             alert("Please try again later");
             document.location.reload(true);

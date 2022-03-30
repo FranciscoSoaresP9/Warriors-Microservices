@@ -37,6 +37,11 @@ public class ResourcesController {
         return "css/account/style.css";
     }
 
+    @GetMapping(value = "/css/play.css")
+    public String stylePlay() {
+        return "css/play/play.css";
+    }
+
     @GetMapping(path = "/fonts/line-awesome/css/line-awesome.min.css")
     public String fonts1() {
         return "css/fonts/line-awesome/css/line-awesome.min.css";
@@ -54,6 +59,11 @@ public class ResourcesController {
     @GetMapping(path = "/js/cardScript.js")
     public String satusScript() {
         return "js/cardScript.js";
+    }
+
+    @GetMapping(path = "/js/pvmfight.js")
+    public String pvmFightScript() {
+        return "js/pvmfight.js";
     }
 
     @GetMapping(path = "/js/createNewAccount.js")
