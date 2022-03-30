@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 8088 
 
 spring:
   application:
@@ -8,34 +8,33 @@ spring:
    gateway:
      routes:
         - id: ACCOUNT-SERVICE
-          uri: http://192.168.1.66:8081/
+          uri: http://192.168.1.227:8081/
           predicates:
             - Path=/account/**
         - id: WARRIOR-SERVICE
-          uri: http://192.168.1.66:8083/
+          uri: http://192.168.1.227:8083/
           predicates:
             - Path=/warrior/**
         - id: POINTS-SERVICE
-          uri: http://192.168.1.66:8084/
+          uri: http://192.168.1.227:8084/
           predicates:
             - Path=/points/**
         - id: STATUS-SERVICE
-          uri: http://192.168.1.66:8085/
+          uri: http://192.168.1.227:8085/
           predicates:
             - Path=/status/**
         - id: LOGIN-SERVICE
-          uri: http://192.168.1.66:8087/
+          uri: http://192.168.1.227:8087/
           predicates:
             - Path=/login/**
         - id: PAGE-SERVICE
-          uri: lb://PAGE-SERVICE
+          uri: lb://PAGE-SERVICE/
           predicates:
              - Path=/page/**
         - id: RESOURCE-SERVICE
-          uri: http://192.168.1.84:8089/
+          uri: lb://RESOURCE-SERVICE//
           predicates:
-             - Path=/resource/**
-        - id: PLAY-SERVICE
-          uri: http://192.168.1.66:8090/
+             - Path=/resource/**        - id: RESOURCE-SERVICE
+                  uri: http://192.168.1.227:8090/
           predicates:
              - Path=/play/**
