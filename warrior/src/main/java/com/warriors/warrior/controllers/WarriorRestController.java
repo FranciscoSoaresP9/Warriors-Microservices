@@ -64,8 +64,6 @@ public class WarriorRestController {
 
     @PostMapping(path = "/updateexperience")
     public Warrior upDateExeperience(@RequestBody WarriorUpdateExperienceDTO warriorUpdateExperienceDTO) {
-        System.out.println("--------------------------------------------");
-        System.out.println(warriorUpdateExperienceDTO.toString());
         return warriorService.
                 updateExperience(warriorUpdateExperienceDTO.getId(),warriorUpdateExperienceDTO.getExperience());
     }

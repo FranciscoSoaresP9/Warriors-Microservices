@@ -6,6 +6,7 @@ import com.example.play.character.Personage;
 public class BattleInfo {
     private Personage monster;
     private boolean win;
+    private Integer experienceEarn;
 
     public Personage getMonster() {
         return monster;
@@ -31,6 +32,5 @@ public class BattleInfo {
         this.experienceEarn = experienceEarn;
     }
 
-    private Integer experienceEarn;
 
 }

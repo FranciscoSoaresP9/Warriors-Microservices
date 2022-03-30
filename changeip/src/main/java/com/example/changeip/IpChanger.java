@@ -158,7 +158,11 @@ public class IpChanger {
                 "        - id: RESOURCE-SERVICE\n" +
                 "          uri: lb://RESOURCE-SERVICE//\n" +
                 "          predicates:\n" +
-                "             - Path=/resource/**";
+                "             - Path=/resource/**"+
+                "        - id: RESOURCE-SERVICE\n" +
+        "                  uri: http://" + newIp + ":8090/\n" +
+                "          predicates:\n" +
+                "             - Path=/play/**";
 
 
     }

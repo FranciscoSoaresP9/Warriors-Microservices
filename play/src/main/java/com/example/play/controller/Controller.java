@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController()
-@RequestMapping("/pvmfight")
+@RequestMapping("/play")
 public class Controller {
     private final Play play;
 
     @Autowired
-    public Controller(Play play, RequestSender requestSender) {
+    public Controller(Play play) {
         this.play = play;
     }
 
-    @PostMapping("/{warriorId}")
+    @PostMapping("pvmfight/{warriorId}")
     public BattleInfo fight(@PathVariable Integer warriorId) {
             return play.start(warriorId);
     }

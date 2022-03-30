@@ -30,31 +30,29 @@ public class MonsterFabric {
     }
 
     private Status setStatus(Monster monster) {
+
+        switch (monster.getType()) {
+            case LOW:
+                return buildStatus(0.5, 0.5, 0.5, 1, monster.getLvl());
+            case MEDIUM:
+                return buildStatus(1, 1, 1, 1, monster.getLvl());
+            default:
+                return buildStatus(2.5, 2.5, 3.0, 1, monster.getLvl());
+
+        }
+
+    }
+
+    private Status buildStatus(double armorOdd, double lifeOdd, double damgeOdd, int speedValue, int monsterLvl) {
         Status status = new Status();
         int armor = 1;
         int life = 1;
         int damage = 1;
         int speed = 1;
-        switch (monster.getType()) {
-            case LOW:
-                armor = (monster.getLvl() * 0.50) < 1 ? 1 : (int) Math.round(monster.getLvl() * 0.50);
-                life = (monster.getLvl() * 0.50) < 1 ? 1 : (int) Math.round(monster.getLvl() * 0.50);
-                damage = (monster.getLvl() * 0.50) < 1 ? 1 : (int) Math.round(monster.getLvl() * 0.50);
-                speed = 1;
-                break;
-            case MEDIUM:
-                armor = (monster.getLvl()) < 1 ? 1 : (int) Math.round(monster.getLvl());
-                life = (monster.getLvl()) < 1 ? 1 : (int) Math.round(monster.getLvl());
-                damage = (monster.getLvl()) < 1 ? 1 : (int) Math.round(monster.getLvl());
-                speed = 1;
-                break;
-            case HIGH:
-                armor = (monster.getLvl() * 2.5) < 1 ? 1 : (int) Math.round(monster.getLvl() * 2.5);
-                life = (monster.getLvl() * 2.5) < 1 ? 1 : (int) Math.round(monster.getLvl() * 2.5);
-                damage = (monster.getLvl() * 3) < 1 ? 1 : (int) Math.round(monster.getLvl() * 2.5);
-                speed = 3;
-                break;
-        }
+        armor = statusCalculator(armorOdd, monsterLvl);
+        life = statusCalculator(lifeOdd, monsterLvl);
+        damage = statusCalculator(damgeOdd, monsterLvl);
+        speed = 3;
         status.setArmor(armor);
         status.setDamage(damage);
         status.setLife(life);
@@ -62,10 +60,14 @@ public class MonsterFabric {
         return status;
     }
 
+    private int statusCalculator(double odd, int lvl) {
+        return (lvl * odd) < 1 ? 1 : (int) Math.round(lvl * odd);
+    }
+
     private int setLvl(int warriorLvl) {
         final long MIN = -3;
         final long MAX = 3;
         long randomLvl = Math.round(Math.random() * (MAX - (MIN) + 1) + MIN);
-        return (randomLvl + warriorLvl <=0) ? 1 : (int) (randomLvl + warriorLvl);
+        return (randomLvl + warriorLvl <= 0) ? 1 : (int) (randomLvl + warriorLvl);
     }
 }

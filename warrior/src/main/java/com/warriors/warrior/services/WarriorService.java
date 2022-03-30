@@ -82,34 +82,32 @@ public class WarriorService implements Services<Warrior> {
 
     }
 
-    public Warrior updateExperience( Integer warriorId,int experience) {
+    public Warrior updateExperience(Integer warriorId, int experience) {
         Warrior warrior = get(warriorId);
-        checkLvlUp(warrior,experience);
-
-
+        checkLvlUp(warrior, experience);
         return warriorRepository.save(warrior);
     }
 
-    private void checkLvlUp(Warrior warrior,int experience) {
-        int maxExperience= calculateMaxExperience(warrior);
-        if((warrior.getExperience()+experience)>=maxExperience){
+    private void checkLvlUp(Warrior warrior, int experience) {
+        int maxExperience = calculateMaxExperience(warrior);
+        if ((warrior.getExperience() + experience) >= maxExperience) {
             warrior.lvlUp();
-            Points points= warrior.getPoints();
-            points.setPointsAvailable(points.getPointsAvailable()+1);
+            Points points = warrior.getPoints();
+            points.setPointsAvailable(points.getPointsAvailable() + 1);
             try {
                 requestSender.updatePoints(points);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            warrior.setExperience(( warrior.getExperience()+experience)-maxExperience);
-        return;
+            warrior.setExperience((warrior.getExperience() + experience) - maxExperience);
+            return;
         }
         warrior.earnExperience(experience);
     }
 
-    private int calculateMaxExperience(Warrior warrior){
-        int lvl= warrior.getLvl();
-        return lvl*100;
+    private int calculateMaxExperience(Warrior warrior) {
+        int lvl = warrior.getLvl();
+        return lvl * 100;
     }
 
     public Warrior updateStatus(Warrior warrior) {

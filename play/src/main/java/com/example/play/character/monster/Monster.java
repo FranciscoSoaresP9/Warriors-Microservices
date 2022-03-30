@@ -49,13 +49,4 @@ public class Monster extends Personage {
         super.setLvl(lvl);
     }
 
-    @Override
-    public String toString() {
-        return "Monster{" +
-                "\ntype=" + type +
-                "\nstatus=" + super.getStatus() +
-                "\nexperience=" + super.getExperience() +
-                "\nlvl=" + super.getLvl() +
-                '}';
-    }
 }

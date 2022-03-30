@@ -23,11 +23,4 @@ public class WarriorUpdateExperienceDTO {
         this.experience = experience;
     }
 
-    @Override
-    public String toString() {
-        return "WarriorUpdateExperienceDTO{" +
-                "id=" + id +
-                ", experience=" + experience +
-                '}';
-    }
 }

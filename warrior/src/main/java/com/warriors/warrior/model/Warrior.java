@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "warriors")
-public class Warrior  {
+public class Warrior {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,7 +20,6 @@ public class Warrior  {
     private Points points;
     @OneToOne
     private Status status;
-
 
 
     public Integer getId() {
@@ -62,8 +61,9 @@ public class Warrior  {
     public void setExperience(int experience) {
         this.experience = experience;
     }
-    public void earnExperience(int experience){
-        this.experience+=experience;
+
+    public void earnExperience(int experience) {
+        this.experience += experience;
     }
 
     public Points getPoints() {
@@ -82,21 +82,7 @@ public class Warrior  {
         this.status = status;
     }
 
-
-    @Override
-    public String toString() {
-        return "Warrior{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", warriorType=" + warriorType +
-                ", lvl=" + lvl +
-                ", experience=" + experience +
-                ", points=" + points +
-                ", status=" + status +
-                '}';
-    }
-
     public void lvlUp() {
-    setLvl(getLvl()+1);
+        setLvl(getLvl() + 1);
     }
 }

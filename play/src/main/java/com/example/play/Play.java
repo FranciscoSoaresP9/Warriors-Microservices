@@ -19,8 +19,6 @@ import java.io.IOException;
 public class Play {
 
     private final MonsterFabric monsterFabric;
-    private Personage warrior;
-    private Personage monster;
     private final RequestSender requestSender;
 
     @Autowired
@@ -31,39 +29,16 @@ public class Play {
 
     public BattleInfo start(Integer warriorId) {
         try {
-            warrior = requestSender.getWarrior(warriorId);
-            monster = monsterFabric.createMonster(warrior);
+            Personage warrior = requestSender.getWarrior(warriorId);
+            Personage monster = monsterFabric.createMonster(warrior);
+            Personage[] orderToAttack = setOrder(monster, warrior);
+            Personage playerOne = orderToAttack[0];
+            Personage playerTwo = orderToAttack[1];
 
-            Personage[] personagesOrder = setOrder(monster, warrior);
-            Personage firstOne = personagesOrder[0];
-            Personage secondOne = personagesOrder[1];
-            while (firstOne.getStatus().getLife() > 0 && secondOne.getStatus().getLife() > 0) {
+            fight(playerOne, playerTwo);
 
-                fight(secondOne, firstOne.getStatus().getDamage());
-                if (doubleAttack(firstOne.getStatus().getSpeed())) {
-                    fight(secondOne, firstOne.getStatus().getDamage());
-                }
-                if (secondOne.getStatus().getLife() <= 0) {
-                    break;
-                }
+            return buildBattleInfo(playerOne, playerTwo);
 
-                fight(firstOne, secondOne.getStatus().getDamage());
-                if (doubleAttack(secondOne.getStatus().getSpeed())) {
-                    fight(firstOne, secondOne.getStatus().getDamage());
-                }
-            }
-            BattleInfo battleInfo = new BattleInfo();
-            battleInfo.setMonster(monster);
-            if (checkWinner(firstOne, secondOne).getPersonageType() == PersonageType.WARRIOR) {
-                battleInfo.setExperienceEarn(monster.getExperience());
-                battleInfo.setWin(true);
-                System.out.println("XP--------------->"+monster.getExperience());
-                sendRequestToUpdate((Warrior) warrior, monster.getExperience());
-                return battleInfo;
-            }
-            battleInfo.setExperienceEarn(0);
-            battleInfo.setWin(false);
-            return battleInfo;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -71,12 +46,48 @@ public class Play {
 
     }
 
+    private BattleInfo buildBattleInfo(Personage playerOne, Personage playerTwo) {
+        BattleInfo battleInfo = new BattleInfo();
+        Personage monster = playerOne.getPersonageType() == PersonageType.MONSTER ? playerOne : playerTwo;
+        Personage warrior = playerOne.getPersonageType() == PersonageType.WARRIOR ? playerOne : playerTwo;
+        battleInfo.setMonster(monster);
+
+        if (checkWinner(playerOne, playerTwo) == PersonageType.WARRIOR) {
+            battleInfo.setExperienceEarn(monster.getExperience());
+            battleInfo.setWin(true);
+            sendRequestToUpdate((Warrior) warrior, monster.getExperience());
+            return battleInfo;
+        }
+
+        battleInfo.setExperienceEarn(0);
+        battleInfo.setWin(false);
+        return battleInfo;
+    }
+
+    private void fight(Personage playerOne, Personage playerTwo) {
+        while (playerOne.getStatus().getLife() > 0 && playerTwo.getStatus().getLife() > 0) {
+            round(playerTwo, playerOne.getStatus().getDamage());
+
+            if (doubleAttack(playerOne.getStatus().getSpeed())) {
+                round(playerTwo, playerOne.getStatus().getDamage());
+            }
+
+            if (playerTwo.getStatus().getLife() <= 0) {
+                break;
+            }
+
+            round(playerOne, playerTwo.getStatus().getDamage());
+            if (doubleAttack(playerTwo.getStatus().getSpeed())) {
+                round(playerOne, playerTwo.getStatus().getDamage());
+            }
+        }
+    }
+
     private void sendRequestToUpdate(Warrior warrior, int experience) {
-        System.out.println("xp requestToUpdate------------>"+experience);
         WarriorUpdateExperienceDTO warriorUpdateExperienceDTO = new WarriorUpdateExperienceDTO();
         warriorUpdateExperienceDTO.setExperience(experience);
         warriorUpdateExperienceDTO.setId(warrior.getId());
-        System.out.println("XP INSIDE WARRIOR----->"+warriorUpdateExperienceDTO.getExperience());
+
         try {
             requestSender.updateExperience(warriorUpdateExperienceDTO);
         } catch (IOException e) {
@@ -84,14 +95,14 @@ public class Play {
         }
     }
 
-    private Personage checkWinner(Personage firstOne, Personage secondOne) {
+    private PersonageType checkWinner(Personage firstOne, Personage secondOne) {
         if (firstOne.getStatus().getLife() > secondOne.getStatus().getLife()) {
-            return firstOne;
+            return firstOne.getPersonageType();
         }
-        return secondOne;
+        return secondOne.getPersonageType();
     }
 
-    private void fight(Personage personage, int damage) {
+    private void round(Personage personage, int damage) {
         int armor = personage.getStatus().getArmor();
         int life = personage.getStatus().getLife();
         int damageToTake = damage;
@@ -108,7 +119,6 @@ public class Play {
 
 
     private int hitArmor(int actualArmor, int damage) {
-
         actualArmor -= damage;
         return actualArmor;
     }
