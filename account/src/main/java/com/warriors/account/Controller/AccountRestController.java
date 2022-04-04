@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-
 @RestController
 @RequestMapping("/account")
 public class AccountRestController {
@@ -38,23 +37,30 @@ public class AccountRestController {
     }
 
     @PostMapping(path = "/addWarrior/{id}")
-    public String creatWarrior(@PathVariable Integer id,@RequestBody Warrior warrior) {
-         accountService.createWarrior(id,warrior);
+    public String creatWarrior(@PathVariable Integer id, @RequestBody Warrior warrior) {
+        accountService.createWarrior(id, warrior);
         return "Warrior Created";
     }
 
     @GetMapping(path = "/getwarrior/{accountId}")
-    public Warrior getWarriorOfAccount(@PathVariable Integer accountId){
+    public Warrior getWarriorOfAccount(@PathVariable Integer accountId) {
         System.out.println(accountService.get(accountId).getWarrior());
-       return accountService.get(accountId).getWarrior();
+        return accountService.get(accountId).getWarrior();
+    }
+
+    @GetMapping(path = "/getAccountByUsername/{accountUserName}")
+    public Account getAccountByUserName(@PathVariable String accountUserName) {
+
+        return accountService.getAccountByUsername(accountUserName);
     }
 
     @GetMapping(path = "/isUserNameExist/{userName}")
-    public Boolean isUsernameExist(@PathVariable String userName){
+    public Boolean isUsernameExist(@PathVariable String userName) {
         return accountService.isUserNameExist(userName);
     }
+
     @GetMapping(path = "/isEmailExist/{email}")
-    public Boolean isEmailExist(@PathVariable String email){
+    public Boolean isEmailExist(@PathVariable String email) {
         return accountService.isEmailExist(email);
     }
 

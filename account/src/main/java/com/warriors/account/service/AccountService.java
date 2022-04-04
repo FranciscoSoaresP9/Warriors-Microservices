@@ -60,9 +60,10 @@ public class AccountService implements warriors.services.Services<Account> {
         return accountRepository.findAll();
     }
 
-    public Integer getIdByUsername(Account account) {
-        return accountRepository.getAccountByUsername(account.getUsername()).getId();
+    public Account getAccountByUsername(String userName) {
+        return accountRepository.getAccountByUsername(userName);
     }
+
 
     /**
      * Check if username and password match

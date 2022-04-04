@@ -1,4 +1,4 @@
-package com.example.accountRegestryservice.messages;
+package com.example.accountRegistryservice.messages;
 /**
  *Class with all user messages
  */

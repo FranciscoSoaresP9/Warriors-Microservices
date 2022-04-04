@@ -1,6 +1,6 @@
-package com.example.accountRegestryservice.service;
+package com.example.accountRegistryservice.service;
 
-import com.example.accountRegestryservice.model.Account;
+import com.example.accountRegistryservice.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

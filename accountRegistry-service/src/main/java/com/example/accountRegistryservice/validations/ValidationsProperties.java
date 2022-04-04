@@ -1,4 +1,4 @@
-package com.example.accountRegestryservice.validations;
+package com.example.accountRegistryservice.validations;
 /**
  *Class all fields validations
  */

@@ -1,4 +1,4 @@
-package com.example.accountRegestryservice;
+package com.example.accountRegistryservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

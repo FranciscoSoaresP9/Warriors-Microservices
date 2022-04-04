@@ -1,7 +1,7 @@
-package com.example.accountRegestryservice;
+package com.example.accountRegistryservice;
 
 
-import com.example.accountRegestryservice.model.Account;
+import com.example.accountRegistryservice.model.Account;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;

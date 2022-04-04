@@ -1,4 +1,4 @@
-package com.example.accountRegestryservice.model;
+package com.example.accountRegistryservice.model;
 
 
 

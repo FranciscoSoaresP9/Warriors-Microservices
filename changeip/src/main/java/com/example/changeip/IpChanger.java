@@ -31,6 +31,8 @@ public class IpChanger {
             gateWayIp(newIp);
             loginIp(newIp);
             pageServiceIp(newIp);
+            playIp(newIp);
+            registryAccountIp(newIp);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,6 +94,15 @@ public class IpChanger {
         change(file, newIp);
     }
 
+    private void playIp(String newIp) throws IOException {
+        File file = new File("..\\play\\src\\main\\resources\\application.properties");
+        change(file, newIp);
+    }
+    private void registryAccountIp(String newIp) throws IOException {
+        File file = new File("..\\accountRegistry-service\\src\\main\\resources\\application.properties");
+        change(file, newIp);
+    }
+
     private void change(File file, String newIp) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         String line = bufferedReader.readLine();
@@ -148,7 +159,7 @@ public class IpChanger {
                 "          predicates:\n" +
                 "            - Path=/status/**\n" +
                 "        - id: LOGIN-SERVICE\n" +
-                "          uri: http://" + newIp + ":8087/\n" +
+                "          uri: lb://LOGIN-SERVICE/\n" +
                 "          predicates:\n" +
                 "            - Path=/login/**\n" +
                 "        - id: PAGE-SERVICE\n" +
@@ -158,11 +169,15 @@ public class IpChanger {
                 "        - id: RESOURCE-SERVICE\n" +
                 "          uri: lb://RESOURCE-SERVICE//\n" +
                 "          predicates:\n" +
-                "             - Path=/resource/**"+
-                "        - id: RESOURCE-SERVICE\n" +
-        "                  uri: http://" + newIp + ":8090/\n" +
+                "             - Path=/resource/**\n"+
+                "        - id: PLAY-SERVICE\n" +
+                "          uri: http://" + newIp + ":8090/\n" +
                 "          predicates:\n" +
-                "             - Path=/play/**";
+                "             - Path=/play/**\n"+
+                "        - id: REGISTRYACCOUNT-SERVICE\n" +
+                "          uri: http://" + newIp + ":8091/\n" +
+                "          predicates:\n" +
+                "             - Path=/registryaccount/**";
 
 
     }

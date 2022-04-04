@@ -1,4 +1,4 @@
-package com.example.accountRegestryservice;
+package com.example.accountRegistryservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

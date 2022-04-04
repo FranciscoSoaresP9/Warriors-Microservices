@@ -1,4 +1,4 @@
-package com.example.accountRegestryservice.service;
+package com.example.accountRegistryservice.service;
 
 import org.springframework.web.bind.annotation.RequestBody;
 

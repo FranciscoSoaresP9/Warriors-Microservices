@@ -1,7 +1,7 @@
-package com.example.accountRegestryservice.controller;
+package com.example.accountRegistryservice.controller;
 
-import com.example.accountRegestryservice.model.Account;
-import com.example.accountRegestryservice.service.Registry;
+import com.example.accountRegistryservice.model.Account;
+import com.example.accountRegistryservice.service.Registry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,9 +1,9 @@
-package com.example.accountRegestryservice.validations;
+package com.example.accountRegistryservice.validations;
 
 
-import com.example.accountRegestryservice.RequestSender;
-import com.example.accountRegestryservice.messages.Messages;
-import com.example.accountRegestryservice.model.Account;
+import com.example.accountRegistryservice.RequestSender;
+import com.example.accountRegistryservice.messages.Messages;
+import com.example.accountRegistryservice.model.Account;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
