@@ -1,4 +1,4 @@
-package com.warriors.warrior.restservice;
+package com.example.warriorRegistry.registry;
 
 import org.springframework.web.bind.annotation.RequestBody;
 

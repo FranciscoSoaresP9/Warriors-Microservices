@@ -1,13 +1,11 @@
 package com.warriors.warrior.controllers;
 
 import com.warriors.warrior.model.WarriorUpdateExperienceDTO;
-import com.warriors.warrior.restservice.Registry;
 import com.warriors.warrior.services.WarriorService;
 import com.warriors.warrior.model.Warrior;
 import com.warriors.warrior.model.WarriorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 
 
 /**
@@ -20,20 +18,20 @@ public class WarriorRestController {
 
     /**
      * warriorService
+     *
      * @see WarriorService
      */
     private final WarriorService warriorService;
-    private final Registry registryWarrior;
 
     @Autowired
-    public WarriorRestController(WarriorService warriorService, Registry registryWarrior) {
+    public WarriorRestController(WarriorService warriorService) {
         this.warriorService = warriorService;
-        this.registryWarrior = registryWarrior;
     }
 
 
     /**
      * GetAll
+     *
      * @return a json with all warriors
      */
     @GetMapping(path = "/api/get/all")
@@ -43,6 +41,7 @@ public class WarriorRestController {
 
     /**
      * Get one Warrior
+     *
      * @param id
      * @return a json with a warriors
      */
@@ -51,10 +50,21 @@ public class WarriorRestController {
         return warriorService.get(id);
     }
 
-    @PostMapping(path = "/createwarrior")
-    public String createWarrior(@RequestBody WarriorDTO warriorDTO) {
-        return registryWarrior.registry(warriorDTO);
+    @PostMapping(path = "/create")
+    public Warrior createWarrior(@RequestBody WarriorDTO warriorDTO) {
+        return warriorService.createWarrior(warriorDTO);
 
+    }
+
+    @PostMapping(path = "/save")
+    public Warrior saveWarrior(@RequestBody Warrior warrior) {
+        return warriorService.saveWarrior(warrior);
+
+    }
+
+    @GetMapping(path = "/iswarriornameexist/{warriorName}")
+    public boolean isWarriorNameExist(@PathVariable String warriorName) {
+        return warriorService.isWarriorNameExist(warriorName);
     }
 
     @PutMapping(path = "/updatestatus")
@@ -65,6 +75,6 @@ public class WarriorRestController {
     @PostMapping(path = "/updateexperience")
     public Warrior upDateExeperience(@RequestBody WarriorUpdateExperienceDTO warriorUpdateExperienceDTO) {
         return warriorService.
-                updateExperience(warriorUpdateExperienceDTO.getId(),warriorUpdateExperienceDTO.getExperience());
+                updateExperience(warriorUpdateExperienceDTO.getId(), warriorUpdateExperienceDTO.getExperience());
     }
 }
