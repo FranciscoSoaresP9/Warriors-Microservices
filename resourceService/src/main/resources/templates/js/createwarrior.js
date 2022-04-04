@@ -51,7 +51,7 @@ async function handleSubmit(event) {
 
     await $.ajax({
         type: 'post',
-        url: '../warrior/createwarrior',
+        url: '../registrywarrior',
         data: jsonValue,
         contentType: "application/json; charset=utf-8",
         traditional: true,
