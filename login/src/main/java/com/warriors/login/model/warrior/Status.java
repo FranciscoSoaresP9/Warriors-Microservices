@@ -1,13 +1,8 @@
 package com.warriors.login.model.warrior;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "Status")
 public class Status {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private int life;

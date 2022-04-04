@@ -24,7 +24,7 @@ async function handleSubmit(event) {
         document.getElementById("loader").classList.replace("loader-invisible", "loader");
         await $.ajax({
             type: 'post',
-            url: '../account/add',
+            url: '../registryaccount',
             data: jsonValue,
             contentType: "application/json; charset=utf-8",
             traditional: true,
