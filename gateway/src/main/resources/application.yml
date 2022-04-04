@@ -34,7 +34,12 @@ spring:
         - id: RESOURCE-SERVICE
           uri: lb://RESOURCE-SERVICE//
           predicates:
-             - Path=/resource/**        - id: RESOURCE-SERVICE
-                  uri: http://192.168.1.227:8090/
+             - Path=/resource/**
+        - id: PLAY-SERVICE
+          uri: http://192.168.1.227:8090/
           predicates:
              - Path=/play/**
+        - id: REGISTRYACCOUNT-SERVICE
+          uri: http://192.168.1.227:8091/
+          predicates:
+              - Path=/registryaccount/**
