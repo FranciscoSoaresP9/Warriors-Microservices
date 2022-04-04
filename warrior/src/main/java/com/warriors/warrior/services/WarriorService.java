@@ -53,32 +53,22 @@ public class WarriorService implements Services<Warrior> {
     }
 
 
-    public void createWarrior(WarriorDTO warriorDTO) {
+    public Warrior createWarrior(WarriorDTO warriorDTO) {
 
         Warrior warrior = warriorFactory.buildWarrior(warriorDTO);
+        Status defaultStatus = warriorStatusConvert.pointsToStatus(warrior);
+        warrior.setStatus(defaultStatus);
+        return warrior;
+    }
 
-        Points defaultPoints = warrior.getPoints();
-        Points points = null;
-        try {
-            points = requestSender.persistPointsInDB(defaultPoints);
-            warrior.setPoints(points);
-
-            Status defaultStatus = warriorStatusConvert.pointsToStatus(warrior);
-            Status status = requestSender.persistStatusInDB(defaultStatus);
-            warrior.setStatus(status);
-
-            requestSender.associateWarriorToAccount(warriorDTO.getAccountId(), warriorRepository.save(warrior));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+    public Warrior saveWarrior(Warrior warrior) {
+        return warriorRepository.save(warrior);
     }
 
 
-    public boolean checkIfWarriorNameExist(WarriorDTO warriorDTO) {
+    public boolean isWarriorNameExist(String warriorName) {
 
-        return warriorRepository.getWarriorByName(warriorDTO.getName()) != null;
+        return warriorRepository.getWarriorByName(warriorName) != null;
 
     }
 

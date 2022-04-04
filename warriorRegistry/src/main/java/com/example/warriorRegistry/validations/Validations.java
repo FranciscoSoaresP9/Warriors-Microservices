@@ -1,9 +1,10 @@
-package com.warriors.warrior.validations;
+package com.example.warriorRegistry.validations;
 
-import com.warriors.warrior.services.WarriorService;
-import com.warriors.warrior.model.WarriorDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.warriorRegistry.RequestSender;
+import com.example.warriorRegistry.model.WarriorDTO;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 /**
  * Class to validate if the user input are correct
@@ -11,14 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class Validations {
 
-    private final WarriorService warriorService;
+private final RequestSender requestSender;
 
-    @Autowired
-    public Validations(WarriorService warriorService) {
-
-        this.warriorService = warriorService;
+    public Validations(RequestSender requestSender) {
+        this.requestSender = requestSender;
     }
-
 
 
     /**
@@ -35,8 +33,13 @@ public class Validations {
         return false;
     }
 
-    public boolean checkIfWarriorNameExist(WarriorDTO warriorDTO){
-        return warriorService.checkIfWarriorNameExist(warriorDTO);
+    public boolean checkIfWarriorNameExist(String warriorName){
+        try {
+            return requestSender.isWarriorNameExist(warriorName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     public boolean isEmpty(WarriorDTO warriorDTO){
