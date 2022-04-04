@@ -1,13 +1,8 @@
 package com.warriors.login.model.warrior;
 
-import javax.persistence.*;
 
-@Entity
-@Table(name = "Points")
 public class Points {
     public static final int MAX_POINTS=50;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private int life;
     private int armor;

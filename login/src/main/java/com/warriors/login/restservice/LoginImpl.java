@@ -1,43 +1,56 @@
 package com.warriors.login.restservice;
 
+import com.warriors.login.RequestSender;
 import com.warriors.login.model.account.Account;
-import com.warriors.login.repository.AccountRepository;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 public class LoginImpl implements Login {
 
 
-    private final AccountRepository accountRepository;
+    private final RequestSender requestSender;
 
     @Autowired
-    public LoginImpl(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
+    public LoginImpl(RequestSender requestSender) {
+        this.requestSender = requestSender;
     }
 
 
     /**
      * Method to mapping a login request
      *
-     * @param account
+     * @param
      */
 
-    public Account login(Account account) {
-        System.out.println("LOGIN:  "+account);
-        if (checkFields(account)) {
-            return accountRepository.getAccountByUsername(account.getUsername());
+    public Account login(Account accountToLogin) {
+        try {
+            if (requestSender.isUserNameExist(accountToLogin.getUsername())) {
+
+              Account  dbAccount= requestSender.getAccount(accountToLogin.getUsername());
+
+                if (checkPassword(accountToLogin,dbAccount)) {
+                   return dbAccount;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+
         }
         return null;
     }
 
-    private boolean checkFields(Account account) {
-        Account dbAccount = accountRepository.getAccountByUsername(account.getUsername());
-        if (dbAccount != null) {
-            if (dbAccount.getPassword().equals(account.getPassword())) {
-                return true;
-            }
+    private boolean checkPassword(Account accountToLogin,Account dbAccount) {
+        if (dbAccount.getPassword().equals(accountToLogin.getPassword())) {
+            return true;
         }
+
         return false;
     }
 }

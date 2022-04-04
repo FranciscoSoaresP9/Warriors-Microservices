@@ -5,22 +5,17 @@ package com.warriors.login.model.account;
 
 import com.warriors.login.model.warrior.Warrior;
 
-import javax.persistence.*;
 
 
 /**
  * A generic account model entity to be used as a base for concrete types of accounts
  */
-@Entity
-@Table(name = "account")
+
 public class Account {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String username;
     private String password;
     private String email;
-    @OneToOne
     private Warrior warrior;
 
 
