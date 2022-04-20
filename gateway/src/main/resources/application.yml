@@ -31,4 +31,32 @@ spring:
         - id: CARDS-SERVICE
           uri: http://192.168.1.66:8085/
           predicates:
+<<<<<<< HEAD
               - Path=/cards/**
+=======
+            - Path=/status/**
+        - id: LOGIN-SERVICE
+          uri: http://192.168.1.84:8087/
+          predicates:
+            - Path=/login/**
+        - id: PAGE-SERVICE
+          uri: lb://PAGE-SERVICE/
+          predicates:
+             - Path=/page/**
+        - id: RESOURCE-SERVICE
+          uri: lb://RESOURCE-SERVICE//
+          predicates:
+             - Path=/resource/**
+        - id: PLAY-SERVICE
+          uri: http://192.168.1.66:8090/**
+          predicates:
+             - Path=/play/**
+        - id: REGISTRYACCOUNT-SERVICE
+          uri: http://192.168.1.66:8091/
+          predicates:
+             - Path=/registryaccount/**
+        - id: REGISTRYWARRIOR-SERVICE
+          uri: http://192.168.1.66:8092/
+          predicates:
+             - Path=/registrywarrior/**
+>>>>>>> 48d776fa1c06ddee84abf7aa00ff814074840963

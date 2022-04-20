@@ -1,12 +1,16 @@
 window.onload = () => {
-    console.log(sessionStorage.getItem("warrior"));
-    console.log(sessionStorage.getItem("id"));
-    if(sessionStorage.getItem("id") !== "null"){
-        if(sessionStorage.getItem("id") !== null){
-            window.location =  "../page/mainpageloged";
+    accountLogedChecking();
+
+}
+const submitButton = document.getElementById('submitbutton');
+function accountLogedChecking() {
+    if (sessionStorage.getItem("id") !== "null") {
+        if (sessionStorage.getItem("id") !== null) {
+            window.location = "../page/mainpageloged";
         }
     }
 }
+
 async function handleSubmit(event) {
     event.preventDefault();
 
@@ -16,58 +20,61 @@ async function handleSubmit(event) {
 
     const jsonValue = JSON.stringify(value);
 
-    const submitButton = document.getElementById('submitbutton');
     submitButton.disabled = true;
 
     console.log(jsonValue);
     if (value.password === value.confirm_password) {
         document.getElementById("loader").classList.replace("loader-invisible", "loader");
-        await $.ajax({
+        await requestSender(jsonValue,submitButton);
+    };
+
+}
+
+async function requestSender(jsonValue) {
+    await $.ajax({
             type: 'post',
             url: '../registryaccount',
             data: jsonValue,
             contentType: "application/json; charset=utf-8",
             traditional: true,
             success: (data) => {
-                if (data === "") {
-                    alert("Please check the fields")
-                    submitButton.disabled = false;
-                    document.getElementById("loader").classList.replace("loader", "loader-invisible");
-                    return;
-                }
+                displayMessageToUser(data);
 
-                alert(data);
-
-                if (data === "Fields doesn't filled") {
-                    submitButton.disabled = false;
-                    document.getElementById("loader").classList.replace("loader", "loader-invisible");
-                    return;
-                }
-                if (data === "Account created") {
-                    window.location =  "../page/login";
-                    document.getElementById("loader").classList.replace("loader", "loader-invisible");
-                    return;
-                }
-                submitButton.disabled = false;
-                document.getElementById("loader").classList.replace("loader", "loader-invisible");
-                document.location.reload(true);
 
             },
-            error: (status)=>{
+            error: (status) => {
                 alert(status.statusText);
                 alert("Please try again later");
                 document.location.reload(true);
 
+            }
         }
-        }
-        );
-
-    }
-    ;
-
+    );
 }
 
-// just for the demos, avoids form submit
+function displayMessageToUser(data) {
+
+    submitButton.disabled = false;
+    if (data === "") {
+        alert("Please check the fields")
+        document.getElementById("loader").classList.replace("loader", "loader-invisible");
+
+    }
+
+    alert(data);
+
+    if (data="Fields doesn't filled"){
+        document.getElementById("loader").classList.replace("loader", "loader-invisible");
+        return;
+    }
+
+    if (data === "Account created") {
+        window.location = "../page/login";
+     return;
+    }
+    document.location.reload(true);
+}
+
 jQuery.validator.setDefaults({
     debug: true,
     success: function (label) {

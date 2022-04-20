@@ -1,10 +1,14 @@
 window.onload = () => {
-    console.log(sessionStorage.getItem("warrior"));
-    console.log(sessionStorage.getItem("id"));
+    accountLogedChecking();
+
+}
+
+function accountLogedChecking() {
     if (sessionStorage.getItem("id") === "null"||sessionStorage.getItem("id") === null) {
-            window.location = serverUrl + "/page/mainpage"
+        window.location = serverUrl + "/page/mainpage";
     }
 }
+
 
 function logout() {
 

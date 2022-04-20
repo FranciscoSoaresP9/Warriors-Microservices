@@ -1,8 +1,11 @@
 
 body {
 	margin:  0;
+	background: url("../../../../resource/img/background.jpg") no-repeat;
 
-
+}
+#warriors_Img_Container{
+	background: black;
 }
 .page-content {
 	width: 100%;
@@ -247,7 +250,7 @@ body {
 .form-v7-content .form-detail .form-row-last p {
 	font-weight: 600;
 	font-size: 14px;
-	color: #1e1c18e0;
+	color: rgba(234, 234, 234, 0.88);
 	margin-left: 200px;
 }
 .form-v7-content .form-detail .form-row-last a {

@@ -1,12 +1,14 @@
 window.onload = () => {
-    console.log(sessionStorage.getItem("warrior"));
-    console.log(sessionStorage.getItem("id"));
-    if(sessionStorage.getItem("id") !== "null"){
-        if(sessionStorage.getItem("id") !== null){
-            window.location =  "../page/mainpageloged";
+    accountLogedChecking();
+
+}
+
+function accountLogedChecking() {
+    if (sessionStorage.getItem("id") !== "null") {
+        if (sessionStorage.getItem("id") !== null) {
+            window.location = "../page/mainpageloged";
         }
     }
-
 }
 
 async function handleSubmit(event) {
@@ -18,34 +20,42 @@ async function handleSubmit(event) {
 
     const jsonValue = JSON.stringify(value);
     document.getElementById("loader").classList.replace("loader-invisible", "loader");
+    await requestSender(jsonValue);
+
+
+}
+
+async function requestSender(jsonValue) {
     await $.ajax({
         type: 'post',
-        url:  '../login',
+        url: '../login',
         data: jsonValue,
         contentType: "application/json; charset=utf-8",
         traditional: true,
         success: (data) => {
-            console.log(data);
-            if (data !== "") {
-                sessionStorage.setItem("id", data.id);
-                sessionStorage.setItem("warrior",JSON.stringify(data.warrior));
-                alert("Welcome back " + data.username);
-                window.location =  "../page/mainpageloged";
+            displayMessageToUser(data);
 
-                return;
-            }
-            document.getElementById("loader").classList.replace("loader", "loader-invisible");
-            alert("User or password wrong");
         },
-        error: (status)=>{
+        error: (status) => {
             alert(status.statusText);
             alert("Please try again later");
             document.location.reload(true);
 
         }
     });
+}
 
+function displayMessageToUser(data) {
+    if (data !== "") {
+        sessionStorage.setItem("id", data.id);
+        sessionStorage.setItem("warrior", JSON.stringify(data.warrior));
+        alert("Welcome back " + data.username);
+        window.location = "../page/mainpageloged";
 
+        return;
+    }
+    document.getElementById("loader").classList.replace("loader", "loader-invisible");
+    alert("User or password wrong");
 }
 
 const form = document.querySelector('form');

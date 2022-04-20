@@ -5,7 +5,6 @@ window.onload = () => {
         return;
     }
 setUpWarriorInfo();
-    console.log(warrior.id)
     updateStatus(warrior.id);
 }
 
@@ -24,14 +23,14 @@ function setUpWarriorInfo() {
     document.getElementById("pointAvailable").innerText=warrior.points.pointsAvailable;
 
 }
-let percentageArray = new Array();
+let percentageArray = [];
 percentageArray.push(warrior.lvl);
 percentageArray.push(warrior.points.damage*2);
 percentageArray.push(warrior.points.life*2);
 percentageArray.push(warrior.points.armor*2);
 percentageArray.push(warrior.points.speed*2);
 
-var answerArray = new Array();
+var answerArray = [];
 answerArray.push('Experience');
 answerArray.push('Attack:  '+warrior.status.damage);
 answerArray.push('Life:   '+warrior.status.life);
@@ -165,8 +164,6 @@ async function  status(typeOfStatus) {
         return;
     }
     var warriorToSend;
-    console.log(typeOfStatus+"-")
-    console.log(typeOfStatus==="Attack  ")
     switch (typeOfStatus){
         case "Attack  ":
             warrior.points.damage++;
@@ -203,6 +200,9 @@ async function  status(typeOfStatus) {
         }
     })
 }
+
+$('#live-poll-area .answer-list').createBarchart();
+
 function logout() {
     console.log("logout");
     if (sessionStorage.getItem("id") !== "null") {
@@ -213,7 +213,6 @@ function logout() {
 
 }
 
-$('#live-poll-area .answer-list').createBarchart();
  async function updateStatus(warriorId) {
     await $.ajax({
         type: 'get',

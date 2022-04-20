@@ -1,3 +1,7 @@
+
+#warriors_Img_Container{
+    background: black;
+}
 .nav_bar{
     display: flex!important;
     justify-content: space-around;
