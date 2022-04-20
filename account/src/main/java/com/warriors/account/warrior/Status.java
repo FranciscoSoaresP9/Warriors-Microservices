@@ -1,7 +1,9 @@
 package com.warriors.account.warrior;
 
 import javax.persistence.*;
-
+/**
+ * A generic status model entity
+ */
 @Entity
 @Table(name = "Status")
 public class Status {

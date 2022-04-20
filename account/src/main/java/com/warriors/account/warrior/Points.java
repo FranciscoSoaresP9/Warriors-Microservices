@@ -1,7 +1,9 @@
 package com.warriors.account.warrior;
 
 import javax.persistence.*;
-
+/**
+ * A generic points model entity
+ */
 @Entity
 @Table(name = "Points")
 public class Points {

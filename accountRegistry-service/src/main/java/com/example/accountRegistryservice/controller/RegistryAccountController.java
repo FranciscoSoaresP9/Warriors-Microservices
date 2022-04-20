@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+/**
+ * Class that accepts requests to create an account
+ */
+
 @RestController
 @RequestMapping("/registryaccount")
 public class RegistryAccountController {
@@ -19,10 +23,8 @@ public class RegistryAccountController {
 
     /**
      * Method to mapping a new Account Request
-     *
-     * @param account
+        * @param account
      */
-
 
     @PostMapping()
     public String registryAccount(@RequestBody Account account) {

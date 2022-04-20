@@ -1,5 +1,7 @@
 package com.example.play.character.warrior;
-
+/**
+ * A warriorUpdateExperienceDTO to help with the leveling up process
+ */
 public class WarriorUpdateExperienceDTO {
    private Integer id;
    private int experience;

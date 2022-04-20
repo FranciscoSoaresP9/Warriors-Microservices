@@ -1,22 +1,27 @@
 package com.example.play.character;
 
 
-public abstract class Personage {
+import com.example.play.character.warrior.Status;
+
+/**
+ * A abstrac class model of GameELements
+ */
+public abstract class GameElements {
     private Status status;
     private int experience;
     private int lvl;
-    private PersonageType personageType;
+    private GameElementType gameElementType;
 
-    public Personage(){
-        personageType=PersonageType.WARRIOR;
+    public GameElements(){
+        gameElementType = GameElementType.WARRIOR;
     }
 
-    public PersonageType getPersonageType() {
-        return personageType;
+    public GameElementType getPersonageType() {
+        return gameElementType;
     }
 
-    public void setPersonageType(PersonageType personageType) {
-        this.personageType = personageType;
+    public void setPersonageType(GameElementType gameElementType) {
+        this.gameElementType = gameElementType;
     }
 
     public Status getStatus() {

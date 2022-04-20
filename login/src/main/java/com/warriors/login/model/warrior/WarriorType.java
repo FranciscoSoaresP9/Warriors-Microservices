@@ -1,4 +1,7 @@
 package com.warriors.login.model.warrior;
+/**
+ * A warrior type enum
+ */
 
 public enum WarriorType {
     ARCHER(5,2,2,2),

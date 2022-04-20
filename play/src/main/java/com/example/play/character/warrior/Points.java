@@ -1,6 +1,8 @@
 package com.example.play.character.warrior;
 
-
+/**
+ * A Points model
+ */
 public class Points {
     public static final int MAX_POINTS=50;
 

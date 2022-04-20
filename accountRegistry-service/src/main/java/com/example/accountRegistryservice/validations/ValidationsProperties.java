@@ -1,6 +1,6 @@
 package com.example.accountRegistryservice.validations;
 /**
- *Class all fields validations
+ *Class with the requisites of fields
  */
 public enum ValidationsProperties {
     PASSWORD_CHARS_NUMBER(6),

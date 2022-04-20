@@ -1,11 +1,13 @@
 package com.warriors.account.warrior;
 
+/**
+ * Enum of warrior types on application
+ */
 public enum WarriorType {
     ARCHER(5,2,2,2),
     WARRIOR(3,4,4,1),
     ASSASSIN(4,2,3,3);
 
-    public Points points;
     public int damage;
     public int life;
     public int armor;

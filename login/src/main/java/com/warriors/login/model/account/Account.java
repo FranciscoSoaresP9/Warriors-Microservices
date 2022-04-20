@@ -1,14 +1,11 @@
 package com.warriors.login.model.account;
 
 
-
-
 import com.warriors.login.model.warrior.Warrior;
 
 
-
 /**
- * A generic account model entity to be used as a base for concrete types of accounts
+ * A model of Account
  */
 
 public class Account {
@@ -19,17 +16,8 @@ public class Account {
     private Warrior warrior;
 
 
-    /**
-     * Create Warrior if the Player don't have
-     *
-     * @param warrior
-     * @see Warrior
-     */
-    public void creatWarrior(Warrior warrior) {
-        if (warrior != null) {
-            this.warrior = warrior;
-        }
-
+    public void setWarrior(Warrior warrior) {
+        this.warrior = warrior;
     }
 
     public Warrior getWarrior() {
@@ -68,14 +56,4 @@ public class Account {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", warrior=" + warrior +
-                '}';
-    }
 }

@@ -1,5 +1,7 @@
 package com.warriors.account.warrior;
-
+/**
+ * A generic warriorDTO model
+ */
 public class WarriorDTO {
     private String name;
     private String warriorType;

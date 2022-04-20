@@ -1,17 +1,20 @@
-package com.example.play.character.monster;
+package com.example.play.fabric;
 
 
-import com.example.play.character.PersonageType;
-import com.example.play.character.Status;
+import com.example.play.character.GameElements;
+import com.example.play.character.GameElementType;
+import com.example.play.character.warrior.Status;
+import com.example.play.character.monster.Monster;
+import com.example.play.character.monster.MonsterType;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MonsterFabric {
-    public Monster createMonster(com.example.play.character.Personage warrior) {
+    public Monster createMonster(GameElements warrior) {
 
         double randomType = Math.random();
         Monster monster = new Monster();
-        monster.setPersonageType(PersonageType.MONSTER);
+        monster.setPersonageType(GameElementType.MONSTER);
         monster.setLvl(setLvl(warrior.getLvl()));
         if (randomType <= 0.40) {
             monster.setType(MonsterType.LOW);

@@ -1,18 +1,21 @@
 package com.example.play.batleInfo;
 
 
-import com.example.play.character.Personage;
+import com.example.play.character.GameElements;
 
+/**
+ * This class is a BattleInfo model
+ */
 public class BattleInfo {
-    private Personage monster;
+    private GameElements monster;
     private boolean win;
     private Integer experienceEarn;
 
-    public Personage getMonster() {
+    public GameElements getMonster() {
         return monster;
     }
 
-    public void setMonster(Personage personage) {
+    public void setMonster(GameElements personage) {
         this.monster = personage;
     }
 

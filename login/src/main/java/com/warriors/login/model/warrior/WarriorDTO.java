@@ -1,4 +1,7 @@
 package com.warriors.login.model.warrior;
+/**
+ * A warriorDTO model
+ */
 
 public class WarriorDTO {
     private String name;

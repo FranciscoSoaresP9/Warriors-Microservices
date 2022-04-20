@@ -1,5 +1,8 @@
 package com.warriors.login.model.warrior;
 
+/**
+ * A Points model
+ */
 
 public class Points {
     public static final int MAX_POINTS=50;
@@ -83,14 +86,5 @@ public class Points {
     }
 
 
-    @Override
-    public String toString() {
-        return "Points{" +
-                "id=" + id +
-                ", life=" + life +
-                ", armor=" + armor +
-                ", damage=" + damage +
-                ", speed=" + speed +
-                '}';
-    }
+
 }

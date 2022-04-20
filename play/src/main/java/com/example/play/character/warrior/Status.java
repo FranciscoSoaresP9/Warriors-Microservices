@@ -1,6 +1,8 @@
-package com.example.play.character;
+package com.example.play.character.warrior;
 
-
+/**
+ * A Status model
+ */
 public class Status {
 
 

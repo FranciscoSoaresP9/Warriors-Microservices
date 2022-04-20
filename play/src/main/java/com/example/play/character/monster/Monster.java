@@ -1,10 +1,12 @@
 package com.example.play.character.monster;
 
-import com.example.play.character.Personage;
-import com.example.play.character.PersonageType;
-import com.example.play.character.Status;
-
-public class Monster extends Personage {
+import com.example.play.character.GameElements;
+import com.example.play.character.GameElementType;
+import com.example.play.character.warrior.Status;
+/**
+ * A model of Monster
+ */
+public class Monster extends GameElements {
     private MonsterType type;
 
     public MonsterType getType() {
@@ -12,12 +14,12 @@ public class Monster extends Personage {
     }
 
     @Override
-    public void setPersonageType(PersonageType personageType) {
-        super.setPersonageType(personageType);
+    public void setPersonageType(GameElementType gameElementType) {
+        super.setPersonageType(gameElementType);
     }
 
     @Override
-    public PersonageType getPersonageType() {
+    public GameElementType getPersonageType() {
         return super.getPersonageType();
     }
 

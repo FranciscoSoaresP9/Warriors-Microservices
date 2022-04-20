@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 
 /**
- * A generic account model entity to be used as a base for concrete types of accounts
+ * A generic account model entity to be used as a base of account
  */
 @Entity
 @Table(name = "account")
@@ -22,14 +22,7 @@ public class Account {
     @OneToOne
     private Warrior warrior;
 
-
-    /**
-     * Create Warrior if the Player don't have
-     *
-     * @param warrior
-     * @see Warrior
-     */
-    public void creatWarrior(Warrior warrior) {
+    public void setWarrior(Warrior warrior) {
         if (warrior != null) {
             this.warrior = warrior;
         }
@@ -72,14 +65,4 @@ public class Account {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", warrior=" + warrior +
-                '}';
-    }
 }

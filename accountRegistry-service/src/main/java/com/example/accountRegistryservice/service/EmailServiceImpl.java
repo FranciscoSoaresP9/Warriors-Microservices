@@ -7,10 +7,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 /**
- *Class to send emails to user
- */
+ * Implementation of EmailService
+ **/
 @Service
-public class EmailServiceImpl {
+public class EmailServiceImpl implements EmailService {
     /**
      * @see JavaMailSender
      */
@@ -22,7 +22,6 @@ public class EmailServiceImpl {
      * @Param account
      */
     public void sendEmail(Account account) {
-
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(account.getEmail());
         msg.setSubject("Account Created");

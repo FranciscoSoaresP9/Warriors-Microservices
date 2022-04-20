@@ -1,14 +1,16 @@
 package com.example.play.character.warrior;
 
 
-import com.example.play.character.Personage;
-import com.example.play.character.Status;
+import com.example.play.character.GameElements;
 
 /**
  * A warrior model
  */
 
-public class Warrior extends Personage {
+/**
+ * A warrior model
+ */
+public class Warrior extends GameElements {
 
     private Integer id;
     private String name;
@@ -73,17 +75,4 @@ public class Warrior extends Personage {
 
 
 
-
-    @Override
-    public String toString() {
-        return "Warrior{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", warriorType=" + warriorType +
-                ", lvl=" + super.getLvl() +
-                ", experience=" + super.getExperience() +
-                ", points=" + points +
-                ", status=" + super.getStatus() +
-                '}';
-    }
 }

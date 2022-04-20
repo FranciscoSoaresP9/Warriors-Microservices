@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Class to receive request related with status
+ */
 @RestController
 @RequestMapping("/status")
 public class StatusController {
@@ -19,11 +22,21 @@ public class StatusController {
         this.statusService = statusService;
     }
 
+    /**
+     * Class to save status on DataBase
+     * @param status
+     * @return status saved
+     */
     @PostMapping("/saveStatus")
-    public Status associateStatusToWarrior(@RequestBody Status status) {
+    public Status saveStatus(@RequestBody Status status) {
         return statusService.Save(status);
     }
 
+    /**
+     * Class to updated status on DataBase
+     * @param status
+     * @return status updated
+     */
     @PostMapping("/updateStatus")
     public Status updateStatus(@RequestBody Status status) {
         return statusService.update(status);

@@ -2,6 +2,9 @@ package com.warriors.status.model;
 
 import javax.persistence.*;
 
+/**
+ * Model of Status
+ */
 @Entity
 @Table(name = "Status")
 public class Status {

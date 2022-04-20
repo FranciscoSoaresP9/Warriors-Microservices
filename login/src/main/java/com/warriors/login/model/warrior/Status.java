@@ -1,4 +1,7 @@
 package com.warriors.login.model.warrior;
+/**
+ * A Status model
+ */
 
 
 public class Status {

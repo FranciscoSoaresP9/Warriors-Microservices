@@ -1,12 +1,7 @@
 package com.example.accountRegistryservice.model;
 
-
-
-
-
-
 /**
- * A generic account model entity to be used as a base for concrete types of accounts
+ * A generic account model entity to be used as a base for concrete accounts
  */
 
 public class Account {
@@ -15,14 +10,6 @@ public class Account {
     private String username;
     private String password;
     private String email;
-
-
-    /**
-     * Create Warrior if the Player don't have
-     *
-     */
-
-
 
     public Integer getId() {
         return id;
@@ -56,13 +43,4 @@ public class Account {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                '}';
-    }
 }

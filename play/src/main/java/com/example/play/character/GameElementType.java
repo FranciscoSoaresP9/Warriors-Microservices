@@ -1,6 +1,9 @@
 package com.example.play.character;
 
-public enum PersonageType {
+/**
+ * enum of GameElements
+ */
+public enum GameElementType {
     MONSTER,
     WARRIOR
 }

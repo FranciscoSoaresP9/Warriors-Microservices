@@ -12,10 +12,10 @@ import java.util.List;
 
 
 /**
- * AccountService
+ *
  */
 @Service
-public class AccountService implements warriors.services.Services<Account> {
+public class AccountService implements Services<Account>{
 
     private final AccountRepository accountRepository;
 
@@ -34,9 +34,7 @@ public class AccountService implements warriors.services.Services<Account> {
      */
     public void saveOrUpdate(Account account) {
         accountRepository.save(account);
-        System.out.println("created");
     }
-    //Most check if have allready a warrior
 
 
     /**
@@ -116,14 +114,14 @@ public class AccountService implements warriors.services.Services<Account> {
      * @param warrior
      * @param id
      * @see AccountRepository#save(Object)
-     * @see Account#creatWarrior(Warrior)
+     * @see Account#setWarrior(Warrior)
      */
     public void createWarrior(int id, Warrior warrior) {
         Account account = get(id);
         if(account.getWarrior()!=null){
             return;
         }
-        account.creatWarrior(warrior);
+        account.setWarrior(warrior);
         System.out.println(account);
         accountRepository.save(account);
     }

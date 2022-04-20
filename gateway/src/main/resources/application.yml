@@ -1,49 +1,34 @@
 server:
   port: 8088 
 
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    region: default
+    availability-zones:
+      default: default-zone
+    service-url:
+      default-zone: http://192.168.1.66:8761/eureka/
+  instance:
+    hostname: 192.168.1.66
+
 spring:
   application:
     name: API-GATEWAY
   cloud:
    gateway:
      routes:
-        - id: ACCOUNT-SERVICE
-          uri: http://192.168.1.66:8081/
-          predicates:
-            - Path=/account/**
-        - id: WARRIOR-SERVICE
+        - id: PLAYERSERVICE-SERVICE
           uri: http://192.168.1.66:8083/
           predicates:
-            - Path=/warrior/**
-        - id: POINTS-SERVICE
+            - Path=/playerService/**
+        - id: TEAM-SERVICE
           uri: http://192.168.1.66:8084/
           predicates:
-            - Path=/points/**
-        - id: STATUS-SERVICE
+            - Path=/team/**
+        - id: CARDS-SERVICE
           uri: http://192.168.1.66:8085/
           predicates:
-            - Path=/status/**
-        - id: LOGIN-SERVICE
-          uri: http://192.168.1.84:8087/
-          predicates:
-            - Path=/login/**
-        - id: PAGE-SERVICE
-          uri: lb://PAGE-SERVICE/
-          predicates:
-             - Path=/page/**
-        - id: RESOURCE-SERVICE
-          uri: lb://RESOURCE-SERVICE//
-          predicates:
-             - Path=/resource/**
-        - id: PLAY-SERVICE
-          uri: http://192.168.1.66:8090/
-          predicates:
-             - Path=/play/**
-        - id: REGISTRYACCOUNT-SERVICE
-          uri: http://192.168.1.66:8091/
-          predicates:
-             - Path=/registryaccount/
-        - id: REGISTRYWARRIOR-SERVICE
-          uri: http://192.168.1.66:8092/
-          predicates:
-             - Path=/registrywarrior/**
+              - Path=/cards/**

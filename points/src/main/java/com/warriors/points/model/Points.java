@@ -2,6 +2,9 @@ package com.warriors.points.model;
 
 import javax.persistence.*;
 
+/**
+ * A model of Points
+ */
 @Entity
 @Table(name = "Points")
 public class Points {
@@ -87,15 +90,4 @@ public class Points {
         return speed;
     }
 
-
-    @Override
-    public String toString() {
-        return "Points{" +
-                "id=" + id +
-                ", life=" + life +
-                ", armor=" + armor +
-                ", damage=" + damage +
-                ", speed=" + speed +
-                '}';
-    }
 }

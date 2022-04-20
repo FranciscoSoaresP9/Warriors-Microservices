@@ -1,4 +1,4 @@
-package warriors.services;
+package com.warriors.account.service;
 
 public interface Services<T> {
 
