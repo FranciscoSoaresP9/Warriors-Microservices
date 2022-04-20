@@ -1,6 +1,9 @@
 window.onload = () => {
-    console.log(sessionStorage.getItem("warrior"));
-    console.log(sessionStorage.getItem("id"));
+ accountLogedChecking()
+
+}
+
+function accountLogedChecking() {
     if (sessionStorage.getItem("id") === "null") {
         if(sessionStorage.getItem("id") === null){
             window.location =  "../mainpage";

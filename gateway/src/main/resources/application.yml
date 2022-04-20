@@ -36,13 +36,13 @@ spring:
           predicates:
              - Path=/resource/**
         - id: PLAY-SERVICE
-          uri: http://192.168.1.66:8090/
+          uri: http://192.168.1.66:8090/**
           predicates:
              - Path=/play/**
         - id: REGISTRYACCOUNT-SERVICE
           uri: http://192.168.1.66:8091/
           predicates:
-             - Path=/registryaccount/
+             - Path=/registryaccount/**
         - id: REGISTRYWARRIOR-SERVICE
           uri: http://192.168.1.66:8092/
           predicates:

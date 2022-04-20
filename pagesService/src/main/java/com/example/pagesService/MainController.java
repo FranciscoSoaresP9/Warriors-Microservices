@@ -22,7 +22,7 @@ public class MainController {
     @RequestMapping(method = RequestMethod.GET,path = "/newaccount")
     public String register() {
 
-        return "account/create/createaccount.html";
+        return "account/create/registryAccount.html";
     }
 
     /**
