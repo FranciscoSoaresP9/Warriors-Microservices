@@ -1,6 +1,7 @@
 package com.warriors.account.service;
 
 import com.warriors.account.model.Account;
+import com.warriors.account.model.AccountChangePasswordDto;
 import com.warriors.account.repository.AccountRepository;
 import com.warriors.account.warrior.Warrior;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  */
 @Service
-public class AccountService implements Services<Account>{
+public class AccountService implements Services<Account> {
 
     private final AccountRepository accountRepository;
 
@@ -32,8 +33,8 @@ public class AccountService implements Services<Account>{
      *
      * @see AccountRepository#save(Object)
      */
-    public void saveOrUpdate(Account account) {
-        accountRepository.save(account);
+    public Account saveOrUpdate(Account account) {
+        return accountRepository.save(account);
     }
 
 
@@ -56,6 +57,13 @@ public class AccountService implements Services<Account>{
     @Override
     public Iterable<Account> getAll() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public void changePassword(AccountChangePasswordDto accountChangePasswordDto) {
+        Account account = getAccountByUsername(accountChangePasswordDto.getUsername());
+        account.setPassword(accountChangePasswordDto.getPassword());
+        saveOrUpdate(account);
     }
 
     public Account getAccountByUsername(String userName) {
@@ -118,11 +126,15 @@ public class AccountService implements Services<Account>{
      */
     public void createWarrior(int id, Warrior warrior) {
         Account account = get(id);
-        if(account.getWarrior()!=null){
+        if (account.getWarrior() != null) {
             return;
         }
         account.setWarrior(warrior);
         System.out.println(account);
         accountRepository.save(account);
+    }
+
+    public String getEmailByUserName(String username) {
+        return getAccountByUsername(username).getEmail();
     }
 }

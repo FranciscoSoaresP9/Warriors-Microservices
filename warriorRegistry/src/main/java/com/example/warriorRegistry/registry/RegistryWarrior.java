@@ -26,43 +26,51 @@ public class RegistryWarrior implements Registry<WarriorDTO> {
         this.requestSender = requestSender;
     }
 
-    @Override
-    public String registry(WarriorDTO warriorDTO) {
-        try {
-            if (!validations.isEmpty(warriorDTO)) {
-                return Messages.FILL_THE_FIELDS.message;
-            }
 
+    @Override
+    public Warrior registry(WarriorDTO warriorDTO) {
+        try {
             if (!validations.checkIfWarriorNameExist(warriorDTO.getName())) {
 
 
                 Warrior warrior = requestSender.createWarrior(warriorDTO);
 
-                associateWarriorToEntitys(warrior, warriorDTO.getAccountId());
+                warrior = associateWarriorToEntitys(warrior, warriorDTO.getAccountId());
+                return warrior;
 
-                return Messages.WARRIOR_CREATED.message;
             }
-            return Messages.WARRIOR_NAME_TAKEN.message;
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Messages.GENERIC_ERROR.message;
+        return null;
     }
 
-    private void associateWarriorToEntitys(Warrior warrior, Integer accountId) {
-
-
+    private Warrior associateWarriorToEntitys(Warrior warrior, Integer accountId) {
         try {
-            Points points = requestSender.persistPointsInDB(warrior.getPoints());
-            warrior.setPoints(points);
-
-            Status status = requestSender.persistStatusInDB(warrior.getStatus());
-            warrior.setStatus(status);
-
-            requestSender.associateWarriorToAccount(accountId, requestSender.saveWarrior(warrior));
+            associatePoints(warrior);
+            associateStatus(warrior);
+            warrior = saveWarrior(warrior);
+            requestSender.associateWarriorToAccount(accountId, warrior);
+            return warrior;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
+    }
+
+    private void associatePoints(Warrior warrior) throws IOException {
+        Points points = requestSender.persistPointsInDB(warrior.getPoints());
+        warrior.setPoints(points);
+    }
+
+    private void associateStatus(Warrior warrior) throws IOException {
+        Status status = requestSender.persistStatusInDB(warrior.getStatus());
+        warrior.setStatus(status);
+    }
+
+    private Warrior saveWarrior(Warrior warrior) throws IOException {
+        return requestSender.saveWarrior(warrior);
     }
 }

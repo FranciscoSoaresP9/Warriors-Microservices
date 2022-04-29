@@ -7,6 +7,9 @@ import com.example.accountRegistryservice.model.Account;
 import com.example.accountRegistryservice.validations.Validations;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -31,47 +34,53 @@ public class RegistryAccount implements Registry<Account> {
 
     /**
      * This method registry a new account
+     *
      * @param account
      **/
     @Override
-    public String registry(Account account) {
-        HashMap<String, Boolean> validation = validations.checkFieldsOfAccountCreating(account);
-        if (validation == null) {
-            return null;
-        }
-        String validationMessage = validation
+    public ResponseEntity<Account> registry(Account account) {
+        HashMap<HttpStatus, Boolean> validation = validations.checkFieldsOfAccountCreating(account);
+
+        HttpStatus validationMessage = validation
                 .keySet()
                 .stream()
                 .findFirst()
                 .get();
 
         if (!validation.get(validationMessage)) {
-            return validationMessage;
+            return ResponseEntity.status(validationMessage)
+                    .body(account);
         }
 
         try {
             sendEmail(account);
-            persistAccountOnDB(account);
+          account=  persistAccountOnDB(account);
         } catch (Exception e) {
             e.printStackTrace();
-            return Messages.GENERIC_ERROR.message;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .header("statusText", Messages.GENERIC_ERROR.message)
+                    .body(account);
         }
 
-        return Messages.ACCOUNT_CREATED.message;
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .header("status", Messages.ACCOUNT_CREATED.message)
+                .body(account);
     }
 
     /**
      * This method persist the account on DataBase
+     *
      * @param account
      * @throws JSONException
      * @throws IOException
      */
-    private void persistAccountOnDB(Account account) throws JSONException, IOException {
-        requestSender.persistAccountInDB(account);
+    private Account persistAccountOnDB(Account account) throws JSONException, IOException {
+       return requestSender.persistAccountInDB(account);
     }
 
     /**
      * This method sends an email to the user
+     *
      * @param account
      * @throws Exception
      */

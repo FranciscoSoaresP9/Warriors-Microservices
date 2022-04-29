@@ -3,6 +3,8 @@ package com.example.accountRegistryservice.controller;
 import com.example.accountRegistryservice.model.Account;
 import com.example.accountRegistryservice.service.Registry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/registryaccount")
 public class RegistryAccountController {
-    private final Registry registry;
+    private final Registry<Account> registry;
 
     @Autowired
     public RegistryAccountController(Registry registryAccount) {
@@ -27,7 +29,7 @@ public class RegistryAccountController {
      */
 
     @PostMapping()
-    public String registryAccount(@RequestBody Account account) {
+    public ResponseEntity<Account> registryAccount(@RequestBody Account account) {
         return registry.registry(account);
     }
 

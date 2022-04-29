@@ -6,6 +6,7 @@ import com.example.accountRegistryservice.messages.Messages;
 import com.example.accountRegistryservice.model.Account;
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,6 +26,52 @@ public class Validations {
     }
 
 
+
+
+    /**
+     * Check all field of the account
+     * @param account
+     */
+
+    public HashMap<HttpStatus, Boolean> checkFieldsOfAccountCreating(Account account) {
+        HashMap<HttpStatus, Boolean> validation = new HashMap<>();
+        if (!checkFieldsAreFill(account)) {
+            validation.put(HttpStatus.NO_CONTENT, false);
+            return validation;
+        }
+        try {
+            if (checkIfTheUsernameExist(account)) {
+                validation.put(HttpStatus.ALREADY_REPORTED, false);
+                return validation;
+            }
+            if (checkIfTheEmailExist(account)) {
+                validation.put(HttpStatus.IM_USED, false);
+                return validation;
+            }
+
+            if (!checkTheNumberOfCharsOfUsername(account)) {
+                validation.put(HttpStatus.LENGTH_REQUIRED, false);
+                return validation;
+
+            }
+            if (!checkTheNumberOfCharsOfPassword(account)) {
+                validation.put(HttpStatus.LENGTH_REQUIRED, false);
+                return validation;
+            }
+            validation.put(HttpStatus.CREATED, true);
+            return validation;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        validation.put(HttpStatus.INTERNAL_SERVER_ERROR, false);
+        return validation;
+
+    }
+
+
     /**
      * Check if the fields are filled
      * @param account
@@ -40,52 +87,6 @@ public class Validations {
         return true;
     }
 
-
-    /**
-     * Check all field of the account
-     * @param account
-     */
-
-    public HashMap<String, Boolean> checkFieldsOfAccountCreating(Account account) {
-        HashMap<String, Boolean> validation = new HashMap<>();
-        if (!checkFieldsAreFill(account)) {
-            validation.put(Messages.FILL_THE_FIELDS.message, false);
-            return validation;
-        }
-        try {
-            if (checkIfTheUsernameExist(account)) {
-                validation.put(Messages.USERNAME_TAKEN.message, false);
-                return validation;
-            }
-            if (checkIfTheEmailExist(account)) {
-                validation.put(Messages.EMAIL_TAKEN.message, false);
-                return validation;
-            }
-            if (!checkIfTheEmailAreValid(account)) {
-                return null;
-            }
-
-            if (!checkTheNumberOfCharsOfUsername(account)) {
-                validation.put(Messages.NUMBER_OF_USERNAME_CHARS.message, false);
-                return validation;
-
-            }
-            if (!checkTheNumberOfCharsOfPassword(account)) {
-                validation.put(Messages.NUMBER_OF_PASSWORD_CHARS.message, false);
-                return validation;
-            }
-            validation.put(Messages.ACCOUNT_CREATED.message, true);
-            return validation;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        validation.put(Messages.GENERIC_ERROR.message, false);
-        return validation;
-
-    }
 
     /**
      * Check if the numbers of chars of password match with verifications
@@ -115,7 +116,7 @@ public class Validations {
      * @param account
      */
     private boolean checkIfTheEmailExist(Account account) throws JSONException, IOException {
-        if (requestSender.isEmailExist(account.getEmail())) {
+        if (!requestSender.isEmailExist(account.getEmail())) {
             return false;
         }
         return true;

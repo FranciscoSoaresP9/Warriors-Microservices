@@ -1,5 +1,6 @@
 package com.example.accountRegistryservice.service;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -9,5 +10,5 @@ public interface Registry<T> {
     /**
      * Method to registry a new Account
      **/
-    String registry(@RequestBody T account);
+    ResponseEntity<T> registry(@RequestBody T account);
 }

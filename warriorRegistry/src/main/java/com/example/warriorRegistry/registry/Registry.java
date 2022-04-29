@@ -1,8 +1,11 @@
 package com.example.warriorRegistry.registry;
 
+
+import com.example.warriorRegistry.model.Warrior;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 public interface Registry<T> {
-    String registry(@RequestBody T account);
+    Warrior registry(@RequestBody T entity);
+
 }

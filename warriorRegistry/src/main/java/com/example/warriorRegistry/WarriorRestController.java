@@ -1,8 +1,11 @@
 package com.example.warriorRegistry;
 
+import com.example.warriorRegistry.model.Warrior;
 import com.example.warriorRegistry.model.WarriorDTO;
 import com.example.warriorRegistry.registry.Registry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -24,9 +27,8 @@ public class WarriorRestController {
 
 
     @PostMapping()
-    public String createWarrior(@RequestBody WarriorDTO warriorDTO) {
-        System.out.println("registry warrior");
-        return registryWarrior.registry(warriorDTO);
+    public ResponseEntity<Warrior> createWarrior(@RequestBody WarriorDTO warriorDTO) {
+        return new ResponseEntity<Warrior>(registryWarrior.registry(warriorDTO), HttpStatus.CREATED);
 
     }
 

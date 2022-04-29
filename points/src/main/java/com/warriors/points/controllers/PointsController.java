@@ -28,7 +28,8 @@ public class PointsController {
      */
     @PostMapping("/savePoints")
     public Points savePoints(@RequestBody Points points) {
-
+        System.out.println("POINTS");
+        System.out.println(points);
         return pointsRepository.save(points);
     }
 

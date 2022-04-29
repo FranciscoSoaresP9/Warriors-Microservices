@@ -48,9 +48,9 @@ public class RequestSender {
      * @throws IOException
      * @throws JSONException
      */
-    public void persistAccountInDB(Account account) throws IOException, JSONException {
-        restTemplate.postForObject("http://" + getIp() + ":8088/account/add",
-                createHttpEntity(setJsonValueOfAccount(account)), String.class);
+    public Account persistAccountInDB(Account account) throws IOException, JSONException {
+        return restTemplate.postForObject("http://" + getIp() + ":8088/account/add",
+                createHttpEntity(setJsonValueOfAccount(account)), Account.class);
     }
 
     /**
@@ -79,9 +79,10 @@ public class RequestSender {
 
     /**
      * This method create a HttpEntity
-     * @see HttpEntity
+     *
      * @param jsonObject
      * @return
+     * @see HttpEntity
      */
     private HttpEntity<String> createHttpEntity(JSONObject jsonObject) {
         HttpHeaders headers = new HttpHeaders();
@@ -91,9 +92,10 @@ public class RequestSender {
 
     /**
      * This method transform the account into JSONObject
-     * @see JSONObject
+     *
      * @param account
      * @return
+     * @see JSONObject
      */
     private JSONObject setJsonValueOfAccount(Account account) throws JSONException {
         JSONObject jsonObject = new JSONObject();

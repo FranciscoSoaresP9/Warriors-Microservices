@@ -24,6 +24,7 @@ public class LoginController {
      */
     @PostMapping("/login")
     public Account login(@RequestBody Account account) {
+        System.out.println("hi");
        return login.login(account);
     }
 }

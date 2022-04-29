@@ -2,9 +2,12 @@ package com.warriors.account.Controller;
 
 import com.warriors.account.messages.Messages;
 import com.warriors.account.model.Account;
+import com.warriors.account.model.AccountChangePasswordDto;
 import com.warriors.account.service.AccountService;
 import com.warriors.account.warrior.Warrior;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -28,25 +31,26 @@ public class AccountRestController {
      * @return the account creation status
      */
     @PostMapping(path = "/add")
-    public String registryAccount(@RequestBody Account account) {
-        accountService.saveOrUpdate(account);
-        return Messages.ACCOUNT_CREATED.message;
+    public Account registryAccount(@RequestBody Account account) {
+        return accountService.saveOrUpdate(account);
     }
 
     /**
      * This method accepts request to add a warrior to account
+     *
      * @param id
      * @param warrior
      * @return The warrior creation status
      */
-     @PostMapping(path = "/addWarrior/{id}")
+    @PostMapping(path = "/addWarrior/{id}")
     public String creatWarrior(@PathVariable Integer id, @RequestBody Warrior warrior) {
         accountService.createWarrior(id, warrior);
         return Messages.WARRIOR_CREATED.message;
-     }
+    }
 
     /**
      * This method returns the warrior associated with the account
+     *
      * @param accountId
      * @return warrior
      */
@@ -57,6 +61,7 @@ public class AccountRestController {
 
     /**
      * This method find a account by username
+     *
      * @param accountUserName
      * @return warrior
      */
@@ -65,8 +70,18 @@ public class AccountRestController {
 
         return accountService.getAccountByUsername(accountUserName);
     }
+
+    @GetMapping(path = "/getEmailByUsername/{username}")
+    public ResponseEntity<String> getEmailByUsername(@PathVariable String username) {
+        if (accountService.getAccountByUsername(username) == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.FOUND).body(accountService.getEmailByUserName(username));
+    }
+
     /**
      * This method check´s if the username exist
+     *
      * @param userName
      * @return true if username exists and false if not
      */
@@ -77,6 +92,7 @@ public class AccountRestController {
 
     /**
      * This method check´s if the username exist
+     *
      * @param email
      * @return true if email exists and false if not
      */
@@ -85,5 +101,9 @@ public class AccountRestController {
         return accountService.isEmailExist(email);
     }
 
-
+    @PutMapping(path = "changePassword")
+    public ResponseEntity changePassword(@RequestBody AccountChangePasswordDto accountChangePasswordDto) {
+     accountService.changePassword(accountChangePasswordDto);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }

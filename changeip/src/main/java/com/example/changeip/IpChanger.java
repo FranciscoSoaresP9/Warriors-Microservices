@@ -177,7 +177,7 @@ public class IpChanger {
                 "        - id: REGISTRYACCOUNT-SERVICE\n" +
                 "          uri: http://" + newIp + ":8091/\n" +
                 "          predicates:\n" +
-                "             - Path=/registryaccount/**"+
+                "             - Path=/registryaccount/**\n"+
                 "        - id: REGISTRYWARRIOR-SERVICE\n" +
                 "          uri: http://" + newIp + ":8092/\n" +
                 "          predicates:\n" +
