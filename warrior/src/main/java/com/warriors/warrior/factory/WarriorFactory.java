@@ -17,10 +17,11 @@ public class WarriorFactory {
 
     public Warrior buildWarrior(WarriorDTO warriorDTO) {
         Warrior warrior = new Warrior();
-        WarriorType warriorType = convertStringTypeToWarriorType(warriorDTO.getWarriorType());
+        WarriorType warriorType = warriorDTO.getWarriorType();
 
         warrior.setName(warriorDTO.getName());
         warrior.setWarriorType(warriorType);
+        System.out.println(warrior);
         setDefaults(warrior);
 
         warriorStatusConvert.pointsToStatus(warrior);

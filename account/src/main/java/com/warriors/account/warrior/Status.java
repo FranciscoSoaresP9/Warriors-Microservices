@@ -3,13 +3,9 @@ package com.warriors.account.warrior;
 import javax.persistence.*;
 /**
  * A generic status model entity
- */
-@Entity
-@Table(name = "Status")
+*/
 public class Status {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private int life;

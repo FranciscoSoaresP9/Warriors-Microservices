@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 /**
  * Class that accepts requests of account
  */
@@ -42,9 +44,9 @@ public class AccountRestController {
      * @param warrior
      * @return The warrior creation status
      */
-    @PostMapping(path = "/addWarrior/{id}")
-    public String creatWarrior(@PathVariable Integer id, @RequestBody Warrior warrior) {
-        accountService.createWarrior(id, warrior);
+    @PostMapping(path = "/addWarrior/{id}/{warriorId}")
+    public String creatWarrior(@PathVariable Integer id, @PathVariable Integer warriorId) {
+        accountService.createWarrior(id, warriorId);
         return Messages.WARRIOR_CREATED.message;
     }
 
@@ -55,8 +57,15 @@ public class AccountRestController {
      * @return warrior
      */
     @GetMapping(path = "/getwarrior/{accountId}")
-    public Warrior getWarriorOfAccount(@PathVariable Integer accountId) {
-        return accountService.get(accountId).getWarrior();
+    public ResponseEntity<Warrior> getWarriorOfAccount(@PathVariable Integer accountId) {
+
+        try {
+            Warrior warrior=accountService.getWarrior(accountId);
+            return ResponseEntity.status(HttpStatus.OK).body(warrior);
+
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     /**
@@ -103,7 +112,7 @@ public class AccountRestController {
 
     @PutMapping(path = "changePassword")
     public ResponseEntity changePassword(@RequestBody AccountChangePasswordDto accountChangePasswordDto) {
-     accountService.changePassword(accountChangePasswordDto);
+        accountService.changePassword(accountChangePasswordDto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

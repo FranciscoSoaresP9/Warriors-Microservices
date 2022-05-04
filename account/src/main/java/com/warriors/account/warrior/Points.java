@@ -4,8 +4,7 @@ import javax.persistence.*;
 /**
  * A generic points model entity
  */
-@Entity
-@Table(name = "Points")
+
 public class Points {
     public static final int MAX_POINTS=50;
     @Id

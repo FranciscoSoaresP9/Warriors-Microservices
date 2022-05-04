@@ -28,6 +28,7 @@ public class WarriorRestController {
 
     @PostMapping()
     public ResponseEntity<Warrior> createWarrior(@RequestBody WarriorDTO warriorDTO) {
+        System.out.println(warriorDTO);
         return new ResponseEntity<Warrior>(registryWarrior.registry(warriorDTO), HttpStatus.CREATED);
 
     }

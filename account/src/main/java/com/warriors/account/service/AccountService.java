@@ -1,5 +1,6 @@
 package com.warriors.account.service;
 
+import com.warriors.account.RequestSender;
 import com.warriors.account.model.Account;
 import com.warriors.account.model.AccountChangePasswordDto;
 import com.warriors.account.repository.AccountRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,13 +21,15 @@ import java.util.List;
 public class AccountService implements Services<Account> {
 
     private final AccountRepository accountRepository;
+    private final RequestSender requestSender;
 
     /**
      * @see AccountRepository
      */
     @Autowired
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, RequestSender requestSender) {
         this.accountRepository = accountRepository;
+        this.requestSender = requestSender;
     }
 
     /**
@@ -64,6 +68,17 @@ public class AccountService implements Services<Account> {
         Account account = getAccountByUsername(accountChangePasswordDto.getUsername());
         account.setPassword(accountChangePasswordDto.getPassword());
         saveOrUpdate(account);
+    }
+
+    @Override
+    public Warrior getWarrior(Integer accountId) throws IOException {
+
+        Account account=accountRepository.getById(accountId);
+        if(account.getWarriorId()==null){
+            return null ;
+        }
+        Integer warriorId= account.getWarriorId();
+        return requestSender.getWarrior(warriorId);
     }
 
     public Account getAccountByUsername(String userName) {
@@ -124,12 +139,13 @@ public class AccountService implements Services<Account> {
      * @see AccountRepository#save(Object)
      * @see Account#setWarrior(Warrior)
      */
-    public void createWarrior(int id, Warrior warrior) {
+    public void createWarrior(int id, Integer warriorId) {
         Account account = get(id);
-        if (account.getWarrior() != null) {
+        System.out.println(account.getWarriorId());
+        if (account.getWarriorId() != null) {
             return;
         }
-        account.setWarrior(warrior);
+        account.setWarriorId(warriorId);
         System.out.println(account);
         accountRepository.save(account);
     }

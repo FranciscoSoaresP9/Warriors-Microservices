@@ -52,12 +52,15 @@ public class WarriorRestController {
 
     @PostMapping(path = "/create")
     public Warrior createWarrior(@RequestBody WarriorDTO warriorDTO) {
+        System.out.println(warriorDTO);
+        System.out.println("CREATE");
         return warriorService.createWarrior(warriorDTO);
 
     }
 
     @PostMapping(path = "/save")
     public Warrior saveWarrior(@RequestBody Warrior warrior) {
+        System.out.println("SAVE");
         return warriorService.saveWarrior(warrior);
 
     }

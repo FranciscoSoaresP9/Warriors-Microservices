@@ -85,4 +85,17 @@ public class Warrior {
     public void lvlUp() {
         setLvl(getLvl() + 1);
     }
+
+    @Override
+    public String toString() {
+        return "Warrior{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", warriorType=" + warriorType +
+                ", lvl=" + lvl +
+                ", experience=" + experience +
+                ", points=" + points +
+                ", status=" + status +
+                '}';
+    }
 }

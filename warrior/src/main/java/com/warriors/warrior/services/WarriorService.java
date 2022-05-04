@@ -62,6 +62,7 @@ public class WarriorService implements Services<Warrior> {
     }
 
     public Warrior saveWarrior(Warrior warrior) {
+        System.out.println(warrior);
         return warriorRepository.save(warrior);
     }
 

@@ -5,20 +5,17 @@ import javax.persistence.*;
 /**
  * A warrior model
  */
-@Entity
-@Table(name = "warriors")
+
 public class Warrior  {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private WarriorType warriorType;
     private int lvl;
     private int experience;
 
-    @OneToOne
+
     private Points points;
-    @OneToOne
+
     private Status status;
 
 

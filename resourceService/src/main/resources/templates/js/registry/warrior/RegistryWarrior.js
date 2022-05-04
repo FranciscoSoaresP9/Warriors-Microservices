@@ -1,7 +1,6 @@
 export class RegistryWarrior {
     #accountId;
     #data;
-    #typeOfWarrior;
     #loader;
     #requestSender;
 
@@ -13,15 +12,16 @@ export class RegistryWarrior {
     async registry() {
         await this.#buildRequest();
         await this.#requestSender.sendRequest();
-        await console.log(sessionStorage.getItem("warrior"));
+
     }
 
     #buildRequest() {
+        console.log(this.#data);
+        alert("test1");
         this.#requestSender.setJsonValue(this.#transformDataIntoJsonValue());
         this.#requestSender.setUrl("../registrywarrior");
         this.#requestSender.setRequestType('post');
         this.#requestSender.setSuccessRequestAction((data) => {
-            console.log(data);
             this.#successRequestAction(data);
         })
         this.#requestSender.setErrorRequestAction((status) => {
@@ -35,12 +35,10 @@ export class RegistryWarrior {
     #successRequestAction(data) {
         alert(data);
         console.log(data);
-        if (data == "success") {
-            console.log(data);
-            sessionStorage.setItem("id",data);
-            return;
-        }
-     //   document.location.reload(true);
+
+            sessionStorage.setItem("warrior",data);
+
+   // document.location.reload(true);
     }
 
     #errorRequestAction(status) {
@@ -66,9 +64,6 @@ export class RegistryWarrior {
         this.#data = data;
     };
 
-    setTypeOfWarrior(type) {
-        this.#typeOfWarrior = type;
-    };
 
 
     setRequestSender(requestSender) {

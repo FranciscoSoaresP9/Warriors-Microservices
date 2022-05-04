@@ -19,18 +19,17 @@ public class Account {
     private String username;
     private String password;
     private String email;
-    @OneToOne
-    private Warrior warrior;
+    private Integer warriorId;
 
-    public void setWarrior(Warrior warrior) {
-        if (warrior != null) {
-            this.warrior = warrior;
+    public void setWarriorId(Integer warriorId) {
+        if (warriorId != null) {
+            this.warriorId = warriorId;
         }
 
     }
 
-    public Warrior getWarrior() {
-        return warrior;
+    public Integer getWarriorId() {
+        return warriorId;
     }
 
     public Integer getId() {
@@ -65,4 +64,14 @@ public class Account {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", warriorId=" + warriorId +
+                '}';
+    }
 }

@@ -9,7 +9,8 @@ const warriorStatusElement = new WarriorStatusElements(JSON.parse(warrior));
 const warriorStatusCard = new WarriorStatusCard();
 window.onload = () => {
     let warrior = JSON.parse(sessionStorage.getItem("warrior"));
-    if (warrior == null) {
+    console.log(warrior);
+    if (warrior == "") {
         window.location = "../page/createwarrior";
         return;
     }

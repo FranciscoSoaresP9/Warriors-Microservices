@@ -66,10 +66,22 @@ public class ResourcesController {
         return "js/warriorStatus/WarriorStatusElements.js";
     }
 
+
     @GetMapping(path = "/js/WarriorStatusCard.js")
     public String warriorSatusCardScript() {
         return "js/warriorStatus/WarriorStatusCard.js";
     }
+
+    @GetMapping(path = "/js/MonsterStatusElements.js")
+    public String monsterStatusElementsScript() {
+        return "js/monster/MonsterStatusElements.js";
+    }
+
+    @GetMapping(path = "/js/MonsterStatusCard.js")
+    public String monsterStatusCardScript() {
+        return "js/monster/MonsterStatusCard.js";
+    }
+
 
     @GetMapping(path = "/js/UpdateStatus.js")
     public String UpdateStatusScript() {

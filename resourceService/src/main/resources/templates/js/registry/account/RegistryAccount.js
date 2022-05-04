@@ -59,7 +59,7 @@ export class RegistryAccount {
     }
 
     #errorRequestAction(status) {
-        alert(status);
+
         alert("Pls try again later")
         document.location.reload(true);
     }

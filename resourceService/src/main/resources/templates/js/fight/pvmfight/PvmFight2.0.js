@@ -1,12 +1,15 @@
 export class PvmFight20 {
     #warrior;
     #requestSender;
+    #monster
+    #MonsterStatusCard;
 
     constructor() {
-        $('.fightButton').click(()=>{
+        $('.fightButton').click(() => {
             this.fight();
         });
     }
+
     async fight() {
         await this.#buildRequest();
         await this.#requestSender.sendRequest();
@@ -17,7 +20,7 @@ export class PvmFight20 {
         this.#requestSender.setRequestType('post');
         this.#requestSender.setUrl('../play/pvmfight/' + this.#warrior.id)
         this.#requestSender.setSuccessRequestAction((data) => {
-            console.log(data)
+            this.#successRequestAction(data);
         })
         this.#requestSender.setErrorRequestAction((status) => {
             alert(status.statusText);
@@ -28,11 +31,20 @@ export class PvmFight20 {
 
     }
 
+    #successRequestAction(data) {
+        this.#MonsterStatusCard.setMonster(data.monster);
+        this.#MonsterStatusCard.buildStatusBarsWithoutPlusButton();
+    }
+
     setWarrior(warrior) {
         this.#warrior = warrior;
     }
 
     setRequestSender(requestSender) {
         this.#requestSender = requestSender;
+    }
+
+    setMonsterStatusCard(monsterStatusCard) {
+        this.#MonsterStatusCard = monsterStatusCard;
     }
 }
