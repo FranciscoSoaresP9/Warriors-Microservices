@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Warrior Service
@@ -20,13 +22,15 @@ public class WarriorService implements Services<Warrior> {
     private final WarriorStatusConvert warriorStatusConvert;
     private final WarriorFactory warriorFactory;
     private final RequestSender requestSender;
+    private final SearchForOpponent searchForOpponent;
 
     @Autowired
-    public WarriorService(WarriorRepository warriorRepository, WarriorStatusConvert warriorStatusConvert, WarriorFactory warriorFactory, RequestSender requestSender) {
+    public WarriorService(WarriorRepository warriorRepository, WarriorStatusConvert warriorStatusConvert, WarriorFactory warriorFactory, RequestSender requestSender, SearchForOpponent searchForOpponent) {
         this.warriorRepository = warriorRepository;
         this.warriorStatusConvert = warriorStatusConvert;
         this.warriorFactory = warriorFactory;
         this.requestSender = requestSender;
+        this.searchForOpponent = searchForOpponent;
     }
 
 
@@ -115,5 +119,12 @@ public class WarriorService implements Services<Warrior> {
 
 
     }
+
+    public Warrior searchForOpponent(Warrior warrior) {
+        List<Warrior> allWarrior = new LinkedList<>();
+        getAll().forEach(allWarrior::add);
+        return searchForOpponent.search(warrior, allWarrior);
+    }
+
 
 }

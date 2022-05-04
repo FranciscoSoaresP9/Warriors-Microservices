@@ -31,7 +31,7 @@ public class WarriorFactory {
 
     private void setDefaults(Warrior warrior) {
 
-        warrior.setPoints(new Points(1, 1, 1, 1,1,0));
+        warrior.setPoints(new Points( 1, 1, 1,1,0));
         warrior.setStatus(new Status(0, 0, 0, 0));
         warrior.setLvl(1);
         warrior.setExperience(0);

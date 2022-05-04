@@ -58,6 +58,11 @@ public class WarriorRestController {
 
     }
 
+    @GetMapping("/searchForOpponent")
+    public Warrior searchForOpponent(@RequestBody Warrior warrior) {
+       return warriorService.searchForOpponent(warrior);
+    }
+
     @PostMapping(path = "/save")
     public Warrior saveWarrior(@RequestBody Warrior warrior) {
         System.out.println("SAVE");
