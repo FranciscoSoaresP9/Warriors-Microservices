@@ -8,7 +8,6 @@ import com.example.play.character.warrior.Status;
  */
 public class Monster extends GameElements {
     private MonsterType type;
-
     public MonsterType getType() {
         return type;
     }
@@ -51,4 +50,10 @@ public class Monster extends GameElements {
         super.setLvl(lvl);
     }
 
+    @Override
+    public String toString() {
+        return "Monster{" +
+                "type=" + type +
+                '}';
+    }
 }

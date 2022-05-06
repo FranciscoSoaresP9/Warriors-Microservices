@@ -120,7 +120,8 @@ public class WarriorService implements Services<Warrior> {
 
     }
 
-    public Warrior searchForOpponent(Warrior warrior) {
+    public Warrior searchForOpponent(Integer warriorId) {
+        Warrior warrior = get(warriorId);
         List<Warrior> allWarrior = new LinkedList<>();
         getAll().forEach(allWarrior::add);
         return searchForOpponent.search(warrior, allWarrior);

@@ -29,6 +29,7 @@ public class MonsterFabric {
             monster.setExperience(7 * monster.getLvl());
         }
         monster.setStatus(setStatus(monster));
+        monster.setId(66996699);
         return monster;
     }
 

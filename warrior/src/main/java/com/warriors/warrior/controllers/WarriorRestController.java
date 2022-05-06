@@ -58,9 +58,10 @@ public class WarriorRestController {
 
     }
 
-    @GetMapping("/searchForOpponent")
-    public Warrior searchForOpponent(@RequestBody Warrior warrior) {
-       return warriorService.searchForOpponent(warrior);
+    @GetMapping("/searchForOpponent/{warriorId}")
+    public Warrior searchForOpponent(@PathVariable Integer warriorId) {
+        System.out.println("where");
+        return warriorService.searchForOpponent(warriorId);
     }
 
     @PostMapping(path = "/save")

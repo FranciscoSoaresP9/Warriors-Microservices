@@ -19,6 +19,7 @@ export class MonsterStatusElements {
     }
 
     buildInfo() {
+        console.log(this.#monster)
         this.#lvlElement.innerText = this.#monster.lvl;
         this.#imgElement.src = "../resource/img/monster.jpeg";
         this.#nameElement.innerText = "MONSTER"
