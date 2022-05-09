@@ -3,6 +3,7 @@ package com.example.play;
 import com.example.play.batleInfo.BattleInfo;
 import com.example.play.character.GameElements;
 import com.example.play.character.warrior.Warrior;
+import com.example.play.character.warrior.WarriorUpdateExperienceDTO;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,7 +22,32 @@ public class PvpBattle extends Battle implements BattleSimulator {
         GameElements playerOne = gameElements[0];
         GameElements playerTwo = gameElements[1];
         fight(playerOne, playerTwo);
-        return buildBattleInfo(playerOne, playerTwo, warriorId);
+        return endOfSimulation(playerOne, playerTwo, warriorId);
+    }
+
+    private BattleInfo endOfSimulation(GameElements playerOne, GameElements playerTwo, Integer warriorId) throws IOException {
+        GameElements warrior = playerOne.getId() == warriorId ? playerOne : playerTwo;
+        GameElements warriorAttacked = playerTwo.getId() != warriorId ? playerTwo : playerOne;
+        if (checkWinner(playerOne, playerTwo).equals(warriorId)) {
+            sendRequestToUpdate(warriorId, calculateXp(warriorAttacked));
+            return buildBattleInfo(warrior, warriorAttacked, calculateXp(warriorAttacked), true);
+        }
+        return buildBattleInfo(warrior, warriorAttacked, 0, false);
+    }
+
+    private int calculateXp(GameElements warriorAttacked) {
+        int finalXp = warriorAttacked.getExperience()/4;
+        System.out.println("FINAL XP");
+        System.out.println(finalXp);
+
+        return (finalXp) <= 0 ? 20 : finalXp;
+    }
+
+    private void sendRequestToUpdate(Integer warriorId, int experience) throws IOException {
+        WarriorUpdateExperienceDTO warriorUpdateExperienceDTO = new WarriorUpdateExperienceDTO();
+        warriorUpdateExperienceDTO.setExperience(experience);
+        warriorUpdateExperienceDTO.setId(warriorId);
+        requestSender.updateExperience(warriorUpdateExperienceDTO);
     }
 
     private GameElements[] bootStrap(Integer warriorId) throws IOException {

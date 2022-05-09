@@ -11,24 +11,29 @@ import java.util.stream.Collectors;
 public class SearchForOpponent {
 
     public Warrior search(Warrior warrior, List<Warrior> allWarriors) {
-       return makeMoreCloseSearch(warrior, allWarriors).get();
+        return makeMoreCloseSearch(warrior, allWarriors, 1, 1).get();
     }
 
-    private boolean warriorMatchCalculator(Warrior warrior1, Warrior warrior2) {
+
+    private Optional<Warrior> makeMoreCloseSearch(Warrior warrior, List<Warrior> allWarriors, int minLvl, int maxLvl) {
+        List<Warrior> warriorFiltered = allWarriors.stream().
+                filter(warrior1 -> warriorMatchCalculator(warrior1, warrior, minLvl, maxLvl)).collect(Collectors.toList());
+        if (warriorFiltered.isEmpty()) {
+            return makeMoreCloseSearch(warrior, allWarriors, minLvl + 1, maxLvl + 1);
+        }
+        Warrior warriorFound = allWarriors.get(random(allWarriors.size()));
+        if(warriorFound.getId()==warrior.getId()){
+            return makeMoreCloseSearch(warrior, allWarriors, minLvl + 1, maxLvl + 1);
+        }
+        return Optional.of(warriorFound);
+
+    }
+
+    private boolean warriorMatchCalculator(Warrior warrior1, Warrior warrior2, int minLvl, int maxLvl) {
 
         return warrior1.getLvl() == warrior2.getLvl() ||
-                warrior1.getLvl() == (warrior2.getLvl() - 1)
-                || (warrior1.getLvl() == warrior2.getLvl() + 1);
-    }
-
-    private Optional<Warrior> makeMoreCloseSearch(Warrior warrior, List<Warrior> allWarriors) {
-        List<Warrior> warriorFiltered = allWarriors.stream().
-                filter(warrior1 -> warriorMatchCalculator(warrior1, warrior)).collect(Collectors.toList());
-        if (warriorFiltered.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(allWarriors.get(random(allWarriors.size())));
-
+                warrior1.getLvl() == (warrior2.getLvl() - minLvl)
+                || (warrior1.getLvl() == warrior2.getLvl() + maxLvl);
     }
 
     private int random(int maxRange) {

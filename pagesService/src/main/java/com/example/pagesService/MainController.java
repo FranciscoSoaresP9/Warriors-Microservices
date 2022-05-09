@@ -29,7 +29,7 @@ public class MainController {
      *Method to mapping Main Page View
      * @return mainpage view
      */
-    @GetMapping(path ={ "mainpage",""})
+    @GetMapping(path ={ "/mainpage",""})
     public String mainPage() {
         System.out.println("where");
 

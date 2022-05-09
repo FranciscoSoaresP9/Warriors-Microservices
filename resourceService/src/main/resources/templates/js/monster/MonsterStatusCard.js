@@ -6,8 +6,6 @@ export class MonsterStatusCard {
     buildStatusBarsWithoutPlusButton() {
         let allElements = document.getElementsByClassName("bar-chart");
         let barchart = document.getElementsByClassName("bar-chart")[(allElements.length) - 1];
-        console.log("BARCHART 0");
-        console.log(allElements);
         if (!(barchart === undefined)) {
             this.removeAllElements(allElements);
         }
@@ -16,17 +14,14 @@ export class MonsterStatusCard {
         this.#monsterStatusElements.buildInfo();
         this.#monsterStatusElements.buildPercentageBars();
         this.#monsterStatusElements.buildValueArray();
-        console.log("MONSTER");
-        console.log(this.#monster);
+
         $.fn.createStatusBars = function (valueArray, percentageArray) {
-            console.log(valueArray);
             let chartContainer = $(this);
             let barChart = $('<ul/>', {class: 'bar-chart'});
             barChart.appendTo(chartContainer);
 
             $.each(valueArray, function (index, value) {
 
-                console.log("test")
                 let statusName = value.replace(/[0-9]/g, '').replace(":", "").trim();
                 let chartAnswer = $('<li/>', {class: 'answer-' + index}),
                     nameOfStatus = $('<span/>', {class: 'label', text: value}),
@@ -61,11 +56,7 @@ export class MonsterStatusCard {
     }
 
     removeAllElements(allElements) {
-        console.log("ALL ELEMENTS REMOVER")
-        console.log(allElements);
         for (let i = 1; i < allElements.length; i++) {
-            console.log("ELEMENT " + i + " :")
-            console.log(allElements[i]);
             allElements[i].innerHTML = "";
         }
     }

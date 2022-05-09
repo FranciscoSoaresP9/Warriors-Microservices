@@ -32,8 +32,6 @@ export class PvmFight20 {
     }
 
     #successRequestAction(data) {
-        console.log("SUCESS DATA ")
-        console.log(data);
         this.#MonsterStatusCard.setMonster(data.gameElementAttacked);
         this.#MonsterStatusCard.buildStatusBarsWithoutPlusButton();
     }

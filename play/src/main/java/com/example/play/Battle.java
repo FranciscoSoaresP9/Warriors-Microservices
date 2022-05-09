@@ -100,25 +100,12 @@ public abstract class Battle {
      * @param playerTwo
      * @return
      */
-    protected BattleInfo buildBattleInfo(GameElements playerOne, GameElements playerTwo, Integer warriorId) {
+    protected BattleInfo buildBattleInfo(GameElements warrior, GameElements warriorAttacked, int experience,boolean win) {
         BattleInfo battleInfo = new BattleInfo();
         battleInfo.setGameElementAttacked(warriorAttacked);
-        battleInfo.setWarrior(warrior);
+        battleInfo.setWarrior((Warrior) warrior);
         battleInfo.setExperienceEarn(experience);
         battleInfo.setWin(win);
-
-        GameElements warrior = playerOne.getId() == warriorId ? playerOne : playerTwo;
-        GameElements warriorAttacked = playerTwo.getId() == 66996699 ? playerTwo : playerOne;
-        battleInfo.setGameElementAttacked(warriorAttacked);
-        battleInfo.setWarrior((Warrior) warrior);
-        if (checkWinner(playerOne, playerTwo).equals(warriorId)) {
-            battleInfo.setExperienceEarn(warriorAttacked.getExperience());
-            battleInfo.setWin(true);
-            sendRequestToUpdate((Warrior) warrior, warrior.getExperience());
-            return battleInfo;
-        }
-        battleInfo.setExperienceEarn(0);
-        battleInfo.setWin(false);
         return battleInfo;
     }
 
@@ -130,12 +117,13 @@ public abstract class Battle {
      * @param secondOne
      * @return return a monster or a warrior
      */
-    private Integer checkWinner(GameElements firstOne, GameElements secondOne) {
+    protected Integer checkWinner(GameElements firstOne, GameElements secondOne) {
         if (firstOne.getStatus().getLife() > secondOne.getStatus().getLife()) {
             return firstOne.getId();
         }
         return secondOne.getId();
     }
+
 
 
 
