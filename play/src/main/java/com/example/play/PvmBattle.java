@@ -58,6 +58,9 @@ public class PvmBattle extends Battle implements BattleSimulator {
     private BattleInfo endOfSimulation(GameElements playerOne, GameElements playerTwo, Integer warriorId) throws IOException {
         GameElements warrior = playerOne.getId() == warriorId ? playerOne : playerTwo;
         GameElements warriorAttacked = playerTwo.getId() != warriorId ? playerTwo : playerOne;
+        System.out.println("WARRIOR");
+        System.out.println(warrior);
+        System.out.println("----------------");
         if (checkWinner(playerOne, playerTwo).equals(warriorId)) {
             sendRequestToUpdate(warriorId, warriorAttacked.getExperience());
             return buildBattleInfo(warrior, warriorAttacked, warriorAttacked.getExperience(), true);

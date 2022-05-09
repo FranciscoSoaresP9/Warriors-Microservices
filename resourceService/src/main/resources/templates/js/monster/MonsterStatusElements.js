@@ -27,7 +27,7 @@ export class MonsterStatusElements {
     }
 
     buildPercentageBars() {
-this.#percentageArray=[];
+        this.#percentageArray = [];
         this.#percentageArray.push(this.#monster.lvl);
         this.#percentageArray.push(this.#monster.status.damage * 2);
         this.#percentageArray.push(this.#monster.status.life * 2);
@@ -36,7 +36,7 @@ this.#percentageArray=[];
     }
 
     buildValueArray() {
-        this.#valueArray=[];
+        this.#valueArray = [];
         this.#valueArray.push('Attack:  ' + this.#monster.status.damage);
         this.#valueArray.push('Life:   ' + this.#monster.status.life);
         this.#valueArray.push('Armor:  ' + this.#monster.status.armor);

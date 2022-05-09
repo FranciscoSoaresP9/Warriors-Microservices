@@ -106,6 +106,7 @@ public abstract class Battle {
         battleInfo.setWarrior((Warrior) warrior);
         battleInfo.setExperienceEarn(experience);
         battleInfo.setWin(win);
+
         return battleInfo;
     }
 

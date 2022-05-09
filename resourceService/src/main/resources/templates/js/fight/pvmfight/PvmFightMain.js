@@ -18,6 +18,7 @@ window.onload = () => {
     pvmFight.setWarrior(JSON.parse(warrior));
     pvmFight.setRequestSender(new RequestSender);
     pvmFight.setMonsterStatusCard(monsterStatusCard);
+    pvmFight.setWarriorStatusCard(warriorStatusCard);
 }
 
 function bootStrap() {

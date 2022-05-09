@@ -3,6 +3,7 @@ export class PvmFight20 {
     #requestSender;
     #monster
     #MonsterStatusCard;
+    #warriorStatusCard
 
     constructor() {
         $('.fightButton').click(() => {
@@ -32,6 +33,11 @@ export class PvmFight20 {
     }
 
     #successRequestAction(data) {
+        console.log("WARRIOR");
+        console.log(data.warrior);
+        this.#warriorStatusCard.setWarrior(data.warrior);
+        this.#warriorStatusCard.buildStatusBarsWithoutPlusButton();
+
         this.#MonsterStatusCard.setMonster(data.gameElementAttacked);
         this.#MonsterStatusCard.buildStatusBarsWithoutPlusButton();
     }
@@ -46,5 +52,9 @@ export class PvmFight20 {
 
     setMonsterStatusCard(monsterStatusCard) {
         this.#MonsterStatusCard = monsterStatusCard;
+    }
+
+    setWarriorStatusCard(warriorStatusCard) {
+        this.#warriorStatusCard = warriorStatusCard
     }
 }
