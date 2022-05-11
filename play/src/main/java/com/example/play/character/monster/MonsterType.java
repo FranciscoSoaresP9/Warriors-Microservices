@@ -5,6 +5,7 @@ package com.example.play.character.monster;
  */
 
 public enum MonsterType {
+    EPIC,
     HIGH,
     MEDIUM,
     LOW

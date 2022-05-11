@@ -7,7 +7,6 @@ export class MonsterStatusCard {
         let allElements = document.getElementsByClassName("bar-chart");
         let barchart = document.getElementsByClassName("bar-chart")[(allElements.length) - 1];
         if (!(barchart === undefined)) {
-            console.log("removed monster");
             this.removeAllElements(allElements);
         }
 
@@ -57,7 +56,7 @@ export class MonsterStatusCard {
     }
 
     removeAllElements(allElements) {
-        for (let i = 1; i < allElements.length; i++) {
+        for (let i = 0; i < allElements.length; i++) {
             allElements[i].innerHTML = "";
         }
     }

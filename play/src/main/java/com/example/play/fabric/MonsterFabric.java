@@ -10,23 +10,34 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MonsterFabric {
+    private final double LOW_MAX_ODD=0.40;
+    private final double MEDIUM_MIN_ODD=0.40;
+    private final double MEDIUM_MAX_ODD=0.70;
+    private final double HIGH_MIN_ODD=0.70;
+    private final double HIGH_MAX_ODD=0.90;
+    private final double EPIC_MIN_ODD=0.90;
+
     public Monster createMonster(GameElements warrior) {
 
         double randomType = Math.random();
         Monster monster = new Monster();
         monster.setPersonageType(GameElementType.MONSTER);
         monster.setLvl(setLvl(warrior.getLvl()));
-        if (randomType <= 0.40) {
+        if (randomType <= LOW_MAX_ODD) {
             monster.setType(MonsterType.LOW);
             monster.setExperience(3 * monster.getLvl());
         }
-        if (randomType > 0.40 && randomType <= 0.7) {
+        if (randomType > MEDIUM_MIN_ODD && randomType <= MEDIUM_MAX_ODD) {
             monster.setType(MonsterType.MEDIUM);
             monster.setExperience(5 * monster.getLvl());
         }
-        if (randomType > 0.7) {
+        if (randomType > HIGH_MIN_ODD && randomType<=HIGH_MAX_ODD) {
             monster.setType(MonsterType.HIGH);
             monster.setExperience(7 * monster.getLvl());
+        }
+        if(randomType>EPIC_MIN_ODD){
+            monster.setType(MonsterType.EPIC);
+            monster.setExperience(20* monster.getLvl());
         }
         monster.setStatus(setStatus(monster));
         monster.setId(66996699);
@@ -39,10 +50,11 @@ public class MonsterFabric {
             case LOW:
                 return buildStatus(0.5, 0.5, 0.5, 1, monster.getLvl());
             case MEDIUM:
-                return buildStatus(1, 1, 1, 1, monster.getLvl());
+                return buildStatus(0.7, 1, 0.7, 1, monster.getLvl());
+            case HIGH:
+                return buildStatus(1.2, 1.3, 1.3, 3, monster.getLvl());
             default:
-                return buildStatus(2.5, 2.5, 3.0, 1, monster.getLvl());
-
+                return buildStatus(1.9, 1.9, 1.9, 2, monster.getLvl());
         }
 
     }

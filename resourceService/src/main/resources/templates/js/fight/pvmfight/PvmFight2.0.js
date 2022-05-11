@@ -33,13 +33,21 @@ export class PvmFight20 {
     }
 
     #successRequestAction(data) {
-        console.log("WARRIOR");
-        console.log(data.warrior);
         this.#warriorStatusCard.setWarrior(data.warrior);
-        this.#warriorStatusCard.buildStatusBarsWithoutPlusButton();
 
+        sessionStorage.setItem("warrior",JSON.stringify(data.warrior));
+        this.#warriorStatusCard.buildStatusBarsWithoutPlusButton();
+        this.#showResultOfBattle(data.win);
         this.#MonsterStatusCard.setMonster(data.gameElementAttacked);
         this.#MonsterStatusCard.buildStatusBarsWithoutPlusButton();
+    }
+
+    #showResultOfBattle(win) {
+        if (win) {
+            document.querySelector(".resultLabel").textContent = "YOU WIN";
+            return;
+        }
+        document.querySelector(".resultLabel").textContent = "YOU LOSE";
     }
 
     setWarrior(warrior) {

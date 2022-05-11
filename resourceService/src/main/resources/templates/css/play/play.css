@@ -509,6 +509,78 @@ body {
     background-color: #12e3b0;
     box-shadow: 0 2px 0 #059893;
 }
+.bar-chart-warrior {
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 244px;
+}
+
+.bar-chart-warrior li {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.45;
+    overflow: auto;
+}
+
+.bar-chart-warrior span {
+    display: block;
+}
+
+.bar-chart-warrior .label {
+    font-weight: 700;
+    width: 70%;
+    float: left;
+}
+
+.bar-chart-warrior .percentage {
+    width: 30%;
+    float: right;
+    font-size: 12px;
+    text-align: right;
+}
+
+.bar-chart-warrior .bar-track {
+    clear: both;
+    display: block;
+    background: #e6f0f2;
+    box-shadow: 0 2px 0 #cccccc;
+    height: 5px;
+    overflow: visible;
+    margin-bottom: 20px;
+}
+
+.bar-chart-warrior .bar {
+    display: block;
+    height: 5px;
+}
+
+.bar-chart-warrior .answer-0 .bar {
+    background-color: #ce0f42;
+    box-shadow: 0 2px 0 #99102e;
+}
+
+.bar-chart-warrior .answer-1 .bar {
+    background-color: #72be44;
+    box-shadow: 0 2px 0 #538e32;
+}
+
+.bar-chart-warrior .answer-2 .bar {
+    background-color: #f15637;
+    box-shadow: 0 2px 0 #bd4429;
+}
+
+.bar-chart-warrior .answer-3 .bar {
+    background-color: #8b1851;
+    box-shadow: 0 2px 0 #53002c;
+}
+.bar-chart-warrior .answer-4 .bar {
+    background-color: #12e3b0;
+    box-shadow: 0 2px 0 #059893;
+}
 
 @media only screen and (min-width: 600px) {
     .canvas .graph-container .graph {
@@ -518,6 +590,10 @@ body {
     }
 
     .canvas .bar-chart {
+        float: left;
+        min-width: 244px;
+    }
+    .canvas .bar-chart-warrior {
         float: left;
         min-width: 244px;
     }
@@ -543,10 +619,13 @@ body {
 
 }
 .resultLabel{
+    font-size: 35px;
+    font-family: fantasy;
+    color: #2bb33e;
     display: flex;
     position: absolute;
     margin-left: 0%;
-    margin-top: 20%;
+    margin-top: 5%;
 }
 .fightButton {
     box-shadow: 3px 4px 0px 0px rgb(0 0 0 / 30%);

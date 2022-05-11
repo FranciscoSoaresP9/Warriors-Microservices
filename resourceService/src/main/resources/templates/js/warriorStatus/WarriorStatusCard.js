@@ -47,10 +47,8 @@ export class WarriorStatusCard {
     }
 
     buildStatusBarsWithoutPlusButton() {
-        console.log("Build inside satus bars");
-        console.log(this.#warrior);
-        let allElements = document.getElementsByClassName("bar-chart");
-        let barchart = document.getElementsByClassName("bar-chart")[(allElements.length) - 1];
+        let allElements = document.getElementsByClassName("bar-chart-warrior");
+        let barchart = document.getElementsByClassName("bar-chart-warrior")[(allElements.length) - 1];
         if (!(barchart === undefined)) {
             this.removeAllElements(allElements);
         }
@@ -60,10 +58,8 @@ export class WarriorStatusCard {
         this.#warriorStatusElements.buildValueArray();
 
         $.fn.createStatusBars = function (valueArray,percentageArray) {
-            console.log("VALUE ARRAY");
-            console.log(valueArray);
             let chartContainer = $(this);
-            let barChart = $('<ul/>', {class: 'bar-chart'});
+            let barChart = $('<ul/>', {class: 'bar-chart-warrior'});
             barChart.appendTo(chartContainer);
 
 
@@ -107,7 +103,7 @@ export class WarriorStatusCard {
         });
     }
     removeAllElements(allElements) {
-        for (let i = 1; i < allElements.length; i++) {
+        for (let i = 0; i < allElements.length; i++) {
             allElements[i].innerHTML = "";
         }
     }
