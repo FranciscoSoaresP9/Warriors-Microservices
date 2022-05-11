@@ -2,11 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../resource/css/play.css" type="text/css">
+    <link rel="stylesheet" href="../resource/css/navBar.css" type="text/css">
     <title>Title</title>
 </head>
 <body>
+<div class="nav_bar">
+    <div class="w3-bar nav_bar  w3-card">
+        <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right"
+           href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i
+                class="fa fa-bars"></i></a>
+        <a href="../page/mainpageloged" class="w3-bar-item w3-button w3-padding-large">HOME</a>
+        <a href="../page/warriorstatus" class="w3-bar-item w3-button w3-padding-large w3-hide-small url">WARRIOR</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding-large w3-hide-small url">PLAY</a>
+        <a href="../page/mainpage" class="w3-bar-item w3-button w3-padding-large w3-hide-small url" onclick="logout()">LOGOUT</a>
+        <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">SUPPORT</a>
 
+    </div>
+</div>
 <div class="container">
 
     <div class="card">
@@ -16,9 +32,7 @@
             <div class="dot">
                 <span id="warriorLvl" class="lvl_text">100</span>
             </div>
-            <div class="">
-                <span id="pointAvailable" class="lvl_text">100</span>
-            </div>
+
 
             <div class="product-detail">
                 <h1 id="warriorName"></h1>
@@ -43,13 +57,46 @@
 
                 </div>
             </div>
-
         </div>
     </div>
+    <span class="resultLabel" >RESULT</span>
     <a href="#" class="fightButton">FIGHT</a>
+    <div class="card">
+
+        <div class="card-head">
+
+            <div class="dot">
+                <span id="monsterLvl" class="lvl_text">100</span>
+            </div>
+
+            <div class="product-detail">
+                <h1 id="monsterName"></h1>
+            </div>
+
+            <div class="product-div">
+                <img id="monsterImg" class="product-img">
+            </div>
+
+        </div>
+        <div class="card-body">
+
+            <div class="product-desc">
+                <span class="product-title"><b id="monsterType"></b></span>
+                <div id="live-poll-area-monster">
+
+                    <div class="graph-container">
+                        <div class="graph"></div>
+                    </div>
+                    <div id="status-list" class="answer-list">
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="module" src="../resource/js/pvmfight.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="../resource/js/pvmfight.js"></script>
+    <script type="module" src="../resource/js/mosnter.js"></script>
 </body>
 </html>

@@ -34,7 +34,8 @@ public class RegistryWarrior implements Registry<WarriorDTO> {
 
 
                 Warrior warrior = requestSender.createWarrior(warriorDTO);
-
+                System.out.println("WARRIOR ON REGISTRY");
+                System.out.println(warrior);
                 warrior = associateWarriorToEntitys(warrior, warriorDTO.getAccountId());
                 return warrior;
 

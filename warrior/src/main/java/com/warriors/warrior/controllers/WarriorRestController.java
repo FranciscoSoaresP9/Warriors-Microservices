@@ -52,12 +52,21 @@ public class WarriorRestController {
 
     @PostMapping(path = "/create")
     public Warrior createWarrior(@RequestBody WarriorDTO warriorDTO) {
+        System.out.println(warriorDTO);
+        System.out.println("CREATE");
         return warriorService.createWarrior(warriorDTO);
 
     }
 
+    @GetMapping("/searchForOpponent/{warriorId}")
+    public Warrior searchForOpponent(@PathVariable Integer warriorId) {
+        System.out.println("where");
+        return warriorService.searchForOpponent(warriorId);
+    }
+
     @PostMapping(path = "/save")
     public Warrior saveWarrior(@RequestBody Warrior warrior) {
+        System.out.println("SAVE");
         return warriorService.saveWarrior(warrior);
 
     }

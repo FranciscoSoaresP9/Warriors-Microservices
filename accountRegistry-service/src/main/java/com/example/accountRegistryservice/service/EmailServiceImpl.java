@@ -26,9 +26,8 @@ public class EmailServiceImpl implements EmailService {
         msg.setTo(account.getEmail());
         msg.setSubject("Account Created");
         msg.setText("Hello " + account.getUsername() + " \n \n " +
-                "Welcom to Warrios \n \n" +
-                "Username: " + account.getUsername() + "\n" +
-                "Password: " + account.getPassword());
+                "Welcome to Warriors \n \n" +
+                "Username: " + account.getUsername() + "\n");
         javaMailSender.send(msg);
     }
 }

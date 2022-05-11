@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
 /**
  * This class is responsible for send request to the others services
  */
@@ -23,6 +24,7 @@ public class RequestSender {
      * @see RestTemplate
      */
     private final RestTemplate restTemplate = new RestTemplate();
+
     /**
      * This method is used to get the ip of the server
      *
@@ -41,6 +43,7 @@ public class RequestSender {
 
     /**
      * This method send a request to Warrior service to update the experience of a warrior
+     *
      * @param warriorUpdateExperienceDTO
      * @return
      * @throws IOException
@@ -52,9 +55,10 @@ public class RequestSender {
 
     /**
      * This method create a HttpEntity
-     * @see HttpEntity
+     *
      * @param jsonObject
      * @return
+     * @see HttpEntity
      */
     private HttpEntity<String> createRequest(JSONObject jsonObject) {
         HttpHeaders headers = new HttpHeaders();
@@ -64,9 +68,10 @@ public class RequestSender {
 
     /**
      * This method transform the warriorUpdateExperienceDTO into JSONObject
-     * @see JSONObject
+     *
      * @param warrior
      * @return
+     * @see JSONObject
      */
 
     private JSONObject setJsonValueOfWarrior(WarriorUpdateExperienceDTO warrior) {
@@ -76,14 +81,19 @@ public class RequestSender {
         return jsonObject;
     }
 
+    public Warrior getWarriorToFight(Integer warriorId) throws IOException {
+        return restTemplate.getForObject("http://" + getIp() + ":8088/warrior/searchForOpponent/" + warriorId, Warrior.class);
+    }
+
     /**
      * This method is used to get a warrior from warrior Service
+     *
      * @param warriorId
      * @return
      * @throws IOException
      */
     public Warrior getWarrior(Integer warriorId) throws IOException {
-        return restTemplate.getForObject("http://" + getIp() + ":8088/warrior//api/get/"+warriorId,Warrior.class);
+        return restTemplate.getForObject("http://" + getIp() + ":8088/warrior/api/get/" + warriorId, Warrior.class);
 
     }
 }

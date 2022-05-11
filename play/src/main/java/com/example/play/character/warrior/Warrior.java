@@ -12,18 +12,9 @@ import com.example.play.character.GameElements;
  */
 public class Warrior extends GameElements {
 
-    private Integer id;
     private String name;
     private WarriorType warriorType;
     private Points points;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

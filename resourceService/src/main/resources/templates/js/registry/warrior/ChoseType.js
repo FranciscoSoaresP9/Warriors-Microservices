@@ -1,4 +1,5 @@
 function active(element) {
+
     let allElements = document.getElementsByClassName("warrior-class-active")
     Object.entries(allElements).forEach(
         (value) => {

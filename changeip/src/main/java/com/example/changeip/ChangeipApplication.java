@@ -1,6 +1,4 @@
 package com.example.changeip;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class ChangeipApplication {
 
@@ -8,6 +6,5 @@ public class ChangeipApplication {
 
 		IpChanger ipChanger= new IpChanger();
 
-		ipChanger.ChangeAllDBServicesIp();
-		ipChanger.ChangeServiceWithoutDB();
+		ipChanger.ChangeServiceIp();
 }}

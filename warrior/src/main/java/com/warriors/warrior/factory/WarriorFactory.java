@@ -17,10 +17,11 @@ public class WarriorFactory {
 
     public Warrior buildWarrior(WarriorDTO warriorDTO) {
         Warrior warrior = new Warrior();
-        WarriorType warriorType = convertStringTypeToWarriorType(warriorDTO.getWarriorType());
+        WarriorType warriorType = warriorDTO.getWarriorType();
 
         warrior.setName(warriorDTO.getName());
         warrior.setWarriorType(warriorType);
+        System.out.println(warrior);
         setDefaults(warrior);
 
         warriorStatusConvert.pointsToStatus(warrior);
@@ -30,7 +31,7 @@ public class WarriorFactory {
 
     private void setDefaults(Warrior warrior) {
 
-        warrior.setPoints(new Points(1, 1, 1, 1,1,0));
+        warrior.setPoints(new Points( 1, 1, 1,1,0));
         warrior.setStatus(new Status(0, 0, 0, 0));
         warrior.setLvl(1);
         warrior.setExperience(0);

@@ -1,9 +1,15 @@
+
+
 export class WarriorStatusCard {
     #warriorStatusElements;
     #warrior;
     #requestSender;
 
     buildStatusBars() {
+        this.#warriorStatusElements.setWarrior(this.#warrior);
+        this.#warriorStatusElements.buildInfoWithPointsAvailable();
+        this.#warriorStatusElements.buildPercentageBars();
+        this.#warriorStatusElements.buildValueArray();
         $.fn.createStatusBars = function (valueArray,percentageArray) {
             let chartContainer = $(this);
             let barChart = $('<ul/>', {class: 'bar-chart'});
@@ -36,14 +42,24 @@ export class WarriorStatusCard {
         };
 
         $('#live-poll-area .answer-list').createStatusBars(this.#warriorStatusElements.getValueArray(),this.#warriorStatusElements.getPercentageArray());
-       this.#setUpButtonEvents();
+        this.#setUpButtonEvents();
 
     }
 
     buildStatusBarsWithoutPlusButton() {
+        let allElements = document.getElementsByClassName("bar-chart-warrior");
+        let barchart = document.getElementsByClassName("bar-chart-warrior")[(allElements.length) - 1];
+        if (!(barchart === undefined)) {
+            this.removeAllElements(allElements);
+        }
+        this.#warriorStatusElements.setWarrior(this.#warrior);
+        this.#warriorStatusElements.buildInfo();
+        this.#warriorStatusElements.buildPercentageBars();
+        this.#warriorStatusElements.buildValueArray();
+
         $.fn.createStatusBars = function (valueArray,percentageArray) {
             let chartContainer = $(this);
-            let barChart = $('<ul/>', {class: 'bar-chart'});
+            let barChart = $('<ul/>', {class: 'bar-chart-warrior'});
             barChart.appendTo(chartContainer);
 
 
@@ -86,7 +102,11 @@ export class WarriorStatusCard {
             this.#status('Speed');
         });
     }
-
+    removeAllElements(allElements) {
+        for (let i = 0; i < allElements.length; i++) {
+            allElements[i].innerHTML = "";
+        }
+    }
     async #status(typeOfStatus) {
         if (this.#warrior.points.pointsAvailable <= 0) {
             alert("You dont have points for that");
@@ -140,3 +160,45 @@ export class WarriorStatusCard {
         this.#warriorStatusElements = warriorStatusElements;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

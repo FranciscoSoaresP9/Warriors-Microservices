@@ -21,9 +21,10 @@ public class RequestSender {
 
 
     public void associateWarriorToAccount(Integer accountId, Warrior warriorSaved) throws IOException {
-
-        restTemplate.postForObject("http://" + getIp() + ":8088/account/addWarrior/" + accountId,
-                createRequest(setJsonValueOfWarrior(warriorSaved)), String.class);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("warriorId", warriorSaved.getId());
+        restTemplate.postForObject("http://" + getIp() + ":8088/account/addWarrior/" + accountId+"/"+warriorSaved.getId(),
+               createRequestWithoutJson(), String.class);
     }
 
     private String getIp() throws IOException {
@@ -58,7 +59,7 @@ public class RequestSender {
     }
 
     public boolean isWarriorNameExist(String warriorName) throws IOException {
-        return restTemplate.getForObject("http://" + getIp() + ":8088/warrior/iswarriornameexist/"+warriorName,Boolean.class);
+        return restTemplate.getForObject("http://" + getIp() + ":8088/warrior/iswarriornameexist/" + warriorName, Boolean.class);
     }
 
     private HttpEntity<String> createRequest(JSONObject jsonObject) {
@@ -66,12 +67,16 @@ public class RequestSender {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<>(jsonObject.toString(), headers);
     }
+    private HttpEntity<String> createRequestWithoutJson() {
+        HttpHeaders headers = new HttpHeaders();
 
+        return new HttpEntity<>(headers);
+    }
     private JSONObject setJsonValueOfWarriorDTO(WarriorDTO warriorDTO) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("accountId", warriorDTO.getAccountId());
         jsonObject.put("name", warriorDTO.getName());
-        jsonObject.put("warriorType", WarriorType.WARRIOR);
+        jsonObject.put("warriorType", warriorDTO.getWarriorType());
         return jsonObject;
     }
 
@@ -79,10 +84,11 @@ public class RequestSender {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", warrior.getId());
         jsonObject.put("name", warrior.getName());
-        jsonObject.put("warriorType", WarriorType.WARRIOR);
+        jsonObject.put("warriorType", warrior.getWarriorType());
         jsonObject.put("exeperince", warrior.getExperience());
         jsonObject.put("points", warrior.getPoints());
         jsonObject.put("status", warrior.getStatus());
+
         return jsonObject;
     }
 

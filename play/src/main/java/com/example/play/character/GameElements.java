@@ -7,13 +7,22 @@ import com.example.play.character.warrior.Status;
  * A abstrac class model of GameELements
  */
 public abstract class GameElements {
+    private Integer id;
     private Status status;
     private int experience;
     private int lvl;
     private GameElementType gameElementType;
 
-    public GameElements(){
+    public GameElements() {
         gameElementType = GameElementType.WARRIOR;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public GameElementType getPersonageType() {
@@ -46,5 +55,15 @@ public abstract class GameElements {
 
     public void setLvl(int lvl) {
         this.lvl = lvl;
+    }
+
+    @Override
+    public String toString() {
+        return "GameElements{" +
+                "status=" + status +
+                ", experience=" + experience +
+                ", lvl=" + lvl +
+                ", gameElementType=" + gameElementType +
+                '}';
     }
 }

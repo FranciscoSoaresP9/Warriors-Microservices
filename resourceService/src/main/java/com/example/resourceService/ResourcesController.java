@@ -42,6 +42,12 @@ public class ResourcesController {
         return "css/play/play.css";
     }
 
+    @GetMapping(value = "/css/navBar.css")
+    public String styleNavBar() {
+        return "css/navBar.css";
+    }
+
+
     @GetMapping(path = "/fonts/line-awesome/css/line-awesome.min.css")
     public String fonts1() {
         return "css/fonts/line-awesome/css/line-awesome.min.css";
@@ -66,10 +72,23 @@ public class ResourcesController {
         return "js/warriorStatus/WarriorStatusElements.js";
     }
 
+
     @GetMapping(path = "/js/WarriorStatusCard.js")
     public String warriorSatusCardScript() {
         return "js/warriorStatus/WarriorStatusCard.js";
     }
+
+    @GetMapping(path = "/js/MonsterStatusElements.js")
+    public String monsterStatusElementsScript() {
+        return "js/monster/MonsterStatusElements.js";
+    }
+
+    @GetMapping(path = "/js/MonsterStatusCard.js")
+    public String monsterStatusCardScript() {
+        return "js/monster/MonsterStatusCard.js";
+    }
+
+
 
     @GetMapping(path = "/js/UpdateStatus.js")
     public String UpdateStatusScript() {

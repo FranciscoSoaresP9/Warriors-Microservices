@@ -2,7 +2,7 @@ package com.warriors.warrior.model;
 
 public class WarriorDTO {
     private String name;
-    private String warriorType;
+    private WarriorType warriorType;
     private int accountId;
 
 
@@ -14,11 +14,11 @@ public class WarriorDTO {
         this.name = name;
     }
 
-    public String getWarriorType() {
+    public WarriorType getWarriorType() {
         return warriorType;
     }
 
-    public void setWarriorType(String warriorType) {
+    public void setWarriorType(WarriorType warriorType) {
         this.warriorType = warriorType;
     }
 
@@ -30,7 +30,7 @@ public class WarriorDTO {
         this.accountId = accountId;
     }
 
-    public WarriorDTO(String name, String warriorType, int accountId) {
+    public WarriorDTO(String name, WarriorType warriorType, int accountId) {
         this.name = name;
         this.warriorType = warriorType;
         this.accountId = accountId;

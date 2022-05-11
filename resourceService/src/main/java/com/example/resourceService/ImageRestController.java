@@ -71,4 +71,9 @@ public class ImageRestController {
         File img = new File("src/main/resources/templates/img/warrior.jpg");
         return ResponseEntity.ok().contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img))).body(Files.readAllBytes(img.toPath()));
     }
+    @GetMapping("img/monster.jpeg")
+    public ResponseEntity<byte[]> getMonsterImg() throws IOException {
+        File img = new File("src/main/resources/templates/img/monster.jpg");
+        return ResponseEntity.ok().contentType(MediaType.valueOf(FileTypeMap.getDefaultFileTypeMap().getContentType(img))).body(Files.readAllBytes(img.toPath()));
+    }
 }

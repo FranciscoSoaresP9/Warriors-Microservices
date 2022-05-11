@@ -29,7 +29,7 @@ public class MainController {
      *Method to mapping Main Page View
      * @return mainpage view
      */
-    @GetMapping(path ={ "mainpage",""})
+    @GetMapping(path ={ "/mainpage",""})
     public String mainPage() {
         System.out.println("where");
 
@@ -69,6 +69,10 @@ public class MainController {
     public String play() {
         return "play/pvmfight.html";
     }
-
+    
+    @RequestMapping(method = RequestMethod.GET,path = "/play/tests")
+    public String playtests() {
+        return "play/play.html";
+    }
 }
 
